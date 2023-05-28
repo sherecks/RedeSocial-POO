@@ -26,7 +26,7 @@ public class Screen02 extends JFrame {
 
 
         //TEXTFIELD
-        tituloLabel = new JLabel("CADASTRO");
+        tituloLabel = new JLabel("LOGIN");
         fieldText.add(tituloLabel, BorderLayout.CENTER);
 
         emailUsuario = new JTextField("Email");
