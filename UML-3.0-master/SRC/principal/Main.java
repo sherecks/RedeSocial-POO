@@ -207,66 +207,16 @@ public class Main {
         System.out.println("Like adicionado com sucesso!");
     }
 
-    // MENU!!!
-    public static void menu() {
-        System.out.println(("\n--------MENU--------"));
-        System.out.println(("1 - Cadastrar Usuario "));
-        System.out.println(("2 - Fazer Login "));
-        System.out.println(("3 - Usuários "));
-        System.out.println(("4 - Publicar "));
-        System.out.println(("5 - Exibir Posts "));
-        System.out.println(("6 - Curtir "));
-        System.out.println(("7 - Seguir "));
-        System.out.println(("8 - Desseguir "));
-        System.out.println(("0 - Sair "));
-    }
-
     public static void main(String[] args) {
+        TelaCadastro frame2 = new TelaCadastro();
+        Screen frame1 = new Screen();
+        TelaPrincipal frame3 = new TelaPrincipal();
+        TelaLogin frame4 = new TelaLogin();
 
-        int escolha = 0;
-
-        do {
-
-            TelaCadastro frame2 = new TelaCadastro();
-            Screen frame1 = new Screen();
-            Screen01 frame3 = new Screen01();
-            Screen02 frame4 = new Screen02();
-
-            frame1.setVisible(true);
-            frame2.setVisible(false);
-            frame3.setVisible(false);
-            frame4.setVisible(false);
-
-            System.out.println("Escolha uma opção: ");
-            escolha = Integer.valueOf(s.nextLine());
-
-            switch (escolha) {
-                case 1:
-                    cadastrarUser();
-                    break;
-                case 2:
-                    logar();
-                    break;
-                case 3:
-                    exibirUsuarios();
-                    break;
-                case 4:
-                    publicar();
-                    break;
-                case 5:
-                    exibirPosts();
-                    break;
-                case 6:
-                    darLike();
-                    break;
-                case 7:
-                    seguir();
-                    break;
-                case 8:
-                    desseguir();
-                    break;
-            }
-        } while (escolha != 0);
+        frame1.setVisible(true);
+        frame2.setVisible(false);
+        frame3.setVisible(false);
+        frame4.setVisible(false);
     }
 
 }

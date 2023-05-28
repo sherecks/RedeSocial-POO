@@ -1,7 +1,6 @@
 package principal;
 
 import javax.swing.*;
-
 import java.awt.*;
 
 
@@ -27,8 +26,9 @@ public class Screen extends JFrame {
         tituloLabel = new JLabel("MENU");
         tagsText.add(tituloLabel, BorderLayout.CENTER);
 
-        imagem = new JLabel(new ImageIcon("imagem.png"));
-        tags.add(imagem);
+        imagem = new JLabel(new ImageIcon("SRC/principal/IMAGEM.jpg"));
+        imagem.setSize(100, 100);
+        tags.add(imagem, BorderLayout.SOUTH);
 
         cadastrarUsuarioButton = new JButton("Cadastrar Usuario");
         tags.add(cadastrarUsuarioButton, BorderLayout.CENTER);
@@ -64,7 +64,7 @@ public class Screen extends JFrame {
 
             @Override
             public void actionPerformed( ActionEvent arg0){
-                Screen01 screen = new Screen01();
+                TelaLogin screen = new TelaLogin();
 
                 screen.setVisible(true);
 

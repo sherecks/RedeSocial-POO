@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import java.awt.*;
 
 
-public class Screen01 extends JFrame{
+public class TelaPrincipal extends JFrame{
 
     private JButton usuariosButton;
     private JButton publicarButton;
@@ -18,36 +18,36 @@ public class Screen01 extends JFrame{
 
     private JPanel vision;
 
-    public Screen01(){
+    public TelaPrincipal(){
         Container c = getContentPane();
 
         vision = new JPanel();
         vision.setLayout(new BorderLayout());
 
        
-        usuariosButton = new JButton("1 - Usuários");
+        usuariosButton = new JButton("Usuário");
         vision.add(usuariosButton, BorderLayout.NORTH);
 
     
-        publicarButton = new JButton("2 - Publicar");
+        publicarButton = new JButton("Publicar");
         vision.add(publicarButton, BorderLayout.CENTER);
-        publicarButton.setBackground(Color.GRAY);
        
         interactionPanel = new JPanel();
     
-        exibirPostsButton = new JButton("3 - Exibir Posts");
-        interactionPanel.add(exibirPostsButton);
+        exibirPostsButton = new JButton("Exibir Posts");
+        vision.add(exibirPostsButton);
+        exibirPostsButton.setBackground(Color.GRAY);
        
     
-        curtirButton = new JButton("4 - Curtir");
+        curtirButton = new JButton("Curtir");
         interactionPanel.add(curtirButton);
         
     
-        seguirButton = new JButton("5 - Seguir");
+        seguirButton = new JButton("Seguir");
         interactionPanel.add(seguirButton);
         
        
-        desseguirButton = new JButton("6 - Desseguir");
+        desseguirButton = new JButton("Desseguir");
         interactionPanel.add(desseguirButton);
         
     

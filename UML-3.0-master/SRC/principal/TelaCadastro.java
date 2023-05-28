@@ -68,23 +68,21 @@ public class TelaCadastro extends JFrame {
 
             @Override
             public void actionPerformed( ActionEvent e){
-                Screen01 tela = new Screen01();
+                TelaLogin tela = new TelaLogin();
+                Usuario user = new Usuario();
 
                 String nome = nomeUsuario.getText();
                 String email = emailUsuario.getText();
                 String senha = senhaUsuario.getText();
+
+                sistema.cadastrarUser(user);
                 
-                if(nome.length() == 0 || email.length() == 0 || senha.length() == 0){
-                    Usuario user = new Usuario();
-                    sistema.cadastrarUser(user);
-    
+                if(nome != null || email != null || senha != null){
                     JOptionPane.showMessageDialog(field, "Cadastro realizado com sucesso.");
                     tela.setVisible(true);
                     setVisible(false);
                 }else{
-    
-                    JOptionPane.showMessageDialog(field, "Cadastro não realizado com sucesso.");
-                   
+                    JOptionPane.showMessageDialog(field, "Cadastro não realizado com sucesso."); 
                 }
                 
             }

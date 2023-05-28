@@ -1,9 +1,14 @@
 package principal;
 
+import dados.Usuario;
+import negocios.Login;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Screen02 extends JFrame {
+public class TelaLogin extends JFrame {
 
     private JPanel field;
     private JPanel fieldText;
@@ -14,7 +19,7 @@ public class Screen02 extends JFrame {
     private JLabel tituloLabel;
     private JButton loginUsuario;
 
-    public Screen02(){
+    public TelaLogin(){
 
         field = new JPanel();
         fieldText = new JPanel();
@@ -23,6 +28,7 @@ public class Screen02 extends JFrame {
         field.setBackground(Color.GRAY);
 
         Container c = getContentPane();
+        Login sistema = new Login();
 
 
         //TEXTFIELD
@@ -45,5 +51,27 @@ public class Screen02 extends JFrame {
         c.add(fieldButton, BorderLayout.SOUTH);
         setSize(400, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        loginUsuario.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e){
+                TelaPrincipal tela = new TelaPrincipal();
+
+                String email = emailUsuario.getText();
+                String senha = senhaUsuario.getText();
+
+                sistema.fazerLogin(email, senha);
+
+                if(email != null || senha != null){
+                    tela.setVisible(true);
+                    setVisible(false);
+                    JOptionPane.showMessageDialog(field, "Login realizado com sucesso.");
+                }else{
+                    JOptionPane.showMessageDialog(field, "Login não realizado com sucesso.");           
+                }
+            }
+        });
     }
 }
