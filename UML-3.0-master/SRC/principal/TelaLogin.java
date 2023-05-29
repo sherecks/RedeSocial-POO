@@ -71,6 +71,14 @@ public class TelaLogin extends JFrame {
                 if (email.isEmpty() || senha.isEmpty()) {
                     JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
                 } else {
+
+
+                     // Exibir informações do usuário!!!
+                     String mensagem = "Usuário:\n" +
+                     "Email: " + email;
+                     JOptionPane.showMessageDialog(null, mensagem);
+
+
                     login.fazerLogin(email, senha);
                     tela.setVisible(true);
                     setVisible(false);

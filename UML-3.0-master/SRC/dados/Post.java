@@ -1,18 +1,17 @@
 package dados;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Post{
 
-    private Image imagem;
+    private String imagem;
     private String legenda;
     private String autor;
     private List<Usuario> likes = new ArrayList<>();
 
     //1° - Setters
-    public void setImagem(Image imagem){
+    public void setImagem(String imagem){
         this.imagem = imagem;
     }
     
@@ -30,7 +29,7 @@ public class Post{
 
 
     //2° - Getters
-    public Image getImagem(){
+    public String getImagem(){
         return imagem;
     }
     public String getLegenda(){

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import dados.*;
 import negocios.Login;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -72,7 +73,7 @@ public class TelaPrincipal extends JFrame {
                 String nomeSeguidor = JOptionPane.showInputDialog(null, "Digite o nome do usuário seguidor:");
         
                 if (nomeSeguido != null && nomeSeguidor != null) {
-                    // Continua o código com as operações de seguir o usuário
+                    
                     Usuario seguido = null;
                     for (Usuario u : sistema.mostrarUsuarios()) {
                         if (u != null && u.getNome().equals(nomeSeguido)) {
@@ -97,9 +98,44 @@ public class TelaPrincipal extends JFrame {
                     }
                 } else {
                     // O usuário cancelou a entrada dos nomes
-                    // Trate essa situação conforme necessário
                 }
             }
+        });
+
+
+        publicarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Login sistema = new Login();
+                Post poster = new Post();
+
+                String legenda = JOptionPane.showInputDialog(null, "Digite a legenda:");
+                String autor = JOptionPane.showInputDialog(null, "Digite o autor:");
+
+                if (legenda != null && autor != null) {
+                    poster.setLegenda(legenda);
+                    poster.setAutor(autor);
+
+                    // Selecionar a imagem usando JFileChooser
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setFileFilter(new FileNameExtensionFilter("Imagens", "jpg", "jpeg", "png", "gif"));
+                    int result = fileChooser.showOpenDialog(null);
+
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        String imagePath = fileChooser.getSelectedFile().getPath();
+                        poster.setImagem(imagePath);
+                        sistema.publicar(poster);
+                        JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
+                    } else {
+                        // O usuário cancelou a seleção da imagem
+                    }
+                                
+                    JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
+                } else {
+                    // O usuário cancelou a entrada dos dados
+                    JOptionPane.showMessageDialog(null, "Erro!");
+                }
+             }
         });
 
     }

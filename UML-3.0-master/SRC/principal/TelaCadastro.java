@@ -80,7 +80,7 @@ public class TelaCadastro extends JFrame {
 
                     login.cadastrarUser(nome, email, senha);
                     
-                    // Exibir informações do usuário cadastrado
+                    // Exibir informações do usuário cadastrado!!!
                     String mensagem = "Usuário cadastrado:\n" +
                     "Nome: " + nome + "\n" +
                     "Email: " + email;
