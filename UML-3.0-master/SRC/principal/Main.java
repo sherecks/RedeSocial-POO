@@ -207,7 +207,13 @@ public class Main {
         System.out.println("Like adicionado com sucesso!");
     }
 
+
+    // O IMPORTANTE!!!
     public static void main(String[] args) {
+
+        cadastrarUser();
+        logar();
+
         TelaCadastro frame2 = new TelaCadastro();
         Screen frame1 = new Screen();
         TelaPrincipal frame3 = new TelaPrincipal();

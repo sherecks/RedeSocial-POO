@@ -1,6 +1,7 @@
 package principal;
 
 import negocios.Login;
+import dados.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,24 @@ public class TelaLogin extends JFrame {
     private JLabel tituloLabel, titulo1;
     private JButton loginUsuario; 
 
+    public void logar() {
+        TelaLogin tela = new TelaLogin();
+        Login login = new Login();
+    
+        String email = emailUsuario.getText();
+        String senha = new String(senhaUsuario.getText());
+    
+        Usuario usuarioLogado = login.fazerLogin(email, senha);
+    
+        if (usuarioLogado != null) {
+            JOptionPane.showMessageDialog(field, "Login realizado com sucesso!");
+            tela.setVisible(true);
+            setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
+        }
+    }
+
     public TelaLogin(){
 
         field = new JPanel();
@@ -27,7 +46,6 @@ public class TelaLogin extends JFrame {
         field.setBackground(Color.GRAY);
 
         Container c = getContentPane();
-        Login sistema = new Login();
 
         titulo1 = new JLabel("Digite Email e Senha:");
         field.add(titulo1);
@@ -54,25 +72,12 @@ public class TelaLogin extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-
+        // EVENTO
         loginUsuario.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e){
-                TelaPrincipal tela = new TelaPrincipal();
-
-                String email = emailUsuario.getText();
-                String senha = senhaUsuario.getText();
-
-                sistema.fazerLogin(email, senha);
-
-                if(email.isEmpty() || senha.isEmpty()){
-                    JOptionPane.showMessageDialog(field, "Login não realizado com sucesso.");
-                }else{ 
-                    tela.setVisible(true);
-                    setVisible(false);
-                    JOptionPane.showMessageDialog(field, "Login realizado com sucesso.");         
-                }
+                logar();
             }
         });
     }

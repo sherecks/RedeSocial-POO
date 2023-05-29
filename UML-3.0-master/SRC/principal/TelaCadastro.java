@@ -63,6 +63,7 @@ public class TelaCadastro extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        //EVENTO
         cadastrarUsuario.addActionListener(new ActionListener() {
 
             @Override
@@ -70,15 +71,15 @@ public class TelaCadastro extends JFrame {
                 TelaLogin tela = new TelaLogin();
                 Usuario user = new Usuario();
 
-                String nome = nomeUsuario.getText();
-                String email = emailUsuario.getText();
-                String senha = emailUsuario.getText();
+                user.setNome(nomeUsuario.getText());
+                user.setEmail(emailUsuario.getText());
+                user.setSenha(new String(senhaUsuario.getText()));
 
-                sistema.cadastrarUser(user);
 
-                if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+                if (user.getNome().isEmpty() || user.getEmail().isEmpty() || user.getSenha().isEmpty()) {
                     JOptionPane.showMessageDialog(field, "Cadastro não realizado com sucesso.");
                 } else {
+                    sistema.cadastrarUser(user);
                     tela.setVisible(true);
                     setVisible(false);
                 }
