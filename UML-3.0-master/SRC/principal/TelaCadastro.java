@@ -8,13 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
-
 public class TelaCadastro extends JFrame {
 
     public String nome;
     public String email;
-    public String senha;
 
     private JPanel field;
     private JPanel fieldText;
@@ -23,10 +20,10 @@ public class TelaCadastro extends JFrame {
     private JTextField emailUsuario;
     private JTextField nomeUsuario;
     private JTextField senhaUsuario;
-    private JLabel tituloLabel;
+    private JLabel tituloLabel, titulo1;
     private JButton cadastrarUsuario;
 
-    public TelaCadastro(){
+    public TelaCadastro() {
 
         field = new JPanel();
         fieldText = new JPanel();
@@ -34,25 +31,27 @@ public class TelaCadastro extends JFrame {
         field.setBorder(BorderFactory.createEmptyBorder(180, 10, 10, 10));
         field.setBackground(Color.GRAY);
 
-        Container c = getContentPane(); 
+        Container c = getContentPane();
         Login sistema = new Login();
 
-
-        //TEXTFIELD
+        // TEXTFIELD
         tituloLabel = new JLabel("CADASTRO");
         fieldText.add(tituloLabel, BorderLayout.CENTER);
 
-        nomeUsuario = new JTextField("Nome");
+        titulo1 = new JLabel("Digite Nome, Email e Senha:");
+        field.add(titulo1);
+
+        nomeUsuario = new JTextField();
         nomeUsuario.setColumns(20);
-        field.add(nomeUsuario, BorderLayout.CENTER);
+        field.add(nomeUsuario);
 
-        emailUsuario = new JTextField("Email");
+        emailUsuario = new JTextField();
         emailUsuario.setColumns(20);
-        field.add(emailUsuario, BorderLayout.CENTER);
+        field.add(emailUsuario);
 
-        senhaUsuario = new JTextField("Senha");
+        senhaUsuario = new JTextField();
         senhaUsuario.setColumns(20);
-        field.add(senhaUsuario, BorderLayout.CENTER);
+        field.add(senhaUsuario);
 
         cadastrarUsuario = new JButton("Cadastrar");
         fieldButton.add(cadastrarUsuario, BorderLayout.CENTER);
@@ -64,28 +63,26 @@ public class TelaCadastro extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-
         cadastrarUsuario.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed( ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 TelaLogin tela = new TelaLogin();
                 Usuario user = new Usuario();
 
                 String nome = nomeUsuario.getText();
                 String email = emailUsuario.getText();
-                String senha = senhaUsuario.getText();
+                String senha = emailUsuario.getText();
 
                 sistema.cadastrarUser(user);
-                
-                if(nome != null || email != null || senha != null){
-                    JOptionPane.showMessageDialog(field, "Cadastro realizado com sucesso.");
+
+                if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+                    JOptionPane.showMessageDialog(field, "Cadastro não realizado com sucesso.");
+                } else {
                     tela.setVisible(true);
                     setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(field, "Cadastro não realizado com sucesso."); 
                 }
-                
+
             }
         });
 

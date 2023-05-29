@@ -15,30 +15,32 @@ public class TelaLogin extends JFrame {
 
     private JTextField emailUsuario;
     private JTextField senhaUsuario;
-    private JLabel tituloLabel;
-    private JButton loginUsuario;
+    private JLabel tituloLabel, titulo1;
+    private JButton loginUsuario; 
 
     public TelaLogin(){
 
         field = new JPanel();
         fieldText = new JPanel();
         fieldButton = new JPanel();
-        field.setBorder(BorderFactory.createEmptyBorder(180, 10, 10, 10));
+        field.setBorder(BorderFactory.createEmptyBorder(200, 20, 10, 20));
         field.setBackground(Color.GRAY);
 
         Container c = getContentPane();
         Login sistema = new Login();
 
+        titulo1 = new JLabel("Digite Email e Senha:");
+        field.add(titulo1);
 
         //TEXTFIELD
         tituloLabel = new JLabel("LOGIN");
         fieldText.add(tituloLabel, BorderLayout.CENTER);
 
-        emailUsuario = new JTextField("Email");
+        emailUsuario = new JTextField();
         emailUsuario.setColumns(20);
         field.add(emailUsuario, BorderLayout.CENTER);
 
-        senhaUsuario = new JTextField("Senha");
+        senhaUsuario = new JTextField();
         senhaUsuario.setColumns(20);
         field.add(senhaUsuario, BorderLayout.CENTER);
 
@@ -64,12 +66,12 @@ public class TelaLogin extends JFrame {
 
                 sistema.fazerLogin(email, senha);
 
-                if(email != null || senha != null){
+                if(email.isEmpty() || senha.isEmpty()){
+                    JOptionPane.showMessageDialog(field, "Login não realizado com sucesso.");
+                }else{ 
                     tela.setVisible(true);
                     setVisible(false);
-                    JOptionPane.showMessageDialog(field, "Login realizado com sucesso.");
-                }else{
-                    JOptionPane.showMessageDialog(field, "Login não realizado com sucesso.");           
+                    JOptionPane.showMessageDialog(field, "Login realizado com sucesso.");         
                 }
             }
         });

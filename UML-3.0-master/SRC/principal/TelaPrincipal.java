@@ -3,8 +3,7 @@ package principal;
 import javax.swing.*;
 import java.awt.*;
 
-
-public class TelaPrincipal extends JFrame{
+public class TelaPrincipal extends JFrame {
 
     private JButton usuariosButton;
     private JButton publicarButton;
@@ -12,51 +11,51 @@ public class TelaPrincipal extends JFrame{
     private JButton curtirButton;
     private JButton seguirButton;
     private JButton desseguirButton;
-    private JPanel interactionPanel;
+    private ImageIcon icon;
 
+    private JPanel field;
+    private JPanel interactionPanel;
     private JPanel vision;
 
-    public TelaPrincipal(){
+    public TelaPrincipal() {
         Container c = getContentPane();
 
         vision = new JPanel();
+        field = new JPanel();
         vision.setLayout(new BorderLayout());
+        vision.setBackground(Color.GRAY);
+        vision.setBorder(BorderFactory.createEmptyBorder(10, 22, 10, 22));
 
-       
         usuariosButton = new JButton("Usuário");
-        vision.add(usuariosButton, BorderLayout.NORTH);
+        field.add(usuariosButton, BorderLayout.NORTH);
 
-    
-        publicarButton = new JButton("Publicar");
-        vision.add(publicarButton, BorderLayout.CENTER); 
-       
-        interactionPanel = new JPanel();
-    
-        exibirPosts = new JLabel(new ImageIcon("SRC/principal/IMAGEM.jpg"));
+        icon = new ImageIcon(getClass().getResource("IMAGEM.png"));
+        exibirPosts = new JLabel(icon);
+        icon.setImage(icon.getImage().getScaledInstance(220, 220, 100));
         vision.add(exibirPosts);
-        exibirPosts.setBackground(Color.GRAY);
-       
-    
+ 
+
+        interactionPanel = new JPanel();
+
+        publicarButton = new JButton("Publicar");
+        interactionPanel.add(publicarButton);
+
         curtirButton = new JButton("Curtir");
         interactionPanel.add(curtirButton);
-        
-    
+
         seguirButton = new JButton("Seguir");
         interactionPanel.add(seguirButton);
-        
-       
+
         desseguirButton = new JButton("Desseguir");
         interactionPanel.add(desseguirButton);
-        
-    
+
+        c.add(field, BorderLayout.NORTH);
         c.add(vision, BorderLayout.CENTER);
         c.add(interactionPanel, BorderLayout.SOUTH);
         setSize(480, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-    }
-    
 
-    
+    }
+
 }
