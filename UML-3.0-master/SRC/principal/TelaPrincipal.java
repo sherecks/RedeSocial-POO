@@ -1,8 +1,6 @@
 package principal;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.*;
 
 
@@ -10,7 +8,7 @@ public class TelaPrincipal extends JFrame{
 
     private JButton usuariosButton;
     private JButton publicarButton;
-    private JButton exibirPostsButton;
+    private JLabel exibirPosts;
     private JButton curtirButton;
     private JButton seguirButton;
     private JButton desseguirButton;
@@ -30,13 +28,13 @@ public class TelaPrincipal extends JFrame{
 
     
         publicarButton = new JButton("Publicar");
-        vision.add(publicarButton, BorderLayout.CENTER);
+        vision.add(publicarButton, BorderLayout.CENTER); 
        
         interactionPanel = new JPanel();
     
-        exibirPostsButton = new JButton("Exibir Posts");
-        vision.add(exibirPostsButton);
-        exibirPostsButton.setBackground(Color.GRAY);
+        exibirPosts = new JLabel(new ImageIcon("SRC/principal/IMAGEM.jpg"));
+        vision.add(exibirPosts);
+        exibirPosts.setBackground(Color.GRAY);
        
     
         curtirButton = new JButton("Curtir");
@@ -55,6 +53,7 @@ public class TelaPrincipal extends JFrame{
         c.add(interactionPanel, BorderLayout.SOUTH);
         setSize(480, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         
     }
     

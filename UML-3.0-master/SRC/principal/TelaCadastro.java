@@ -62,6 +62,7 @@ public class TelaCadastro extends JFrame {
         c.add(fieldButton, BorderLayout.SOUTH);
         setSize(400, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
 
         cadastrarUsuario.addActionListener(new ActionListener() {

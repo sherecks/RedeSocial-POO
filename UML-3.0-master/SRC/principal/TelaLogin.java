@@ -1,6 +1,5 @@
 package principal;
 
-import dados.Usuario;
 import negocios.Login;
 
 import javax.swing.*;
@@ -44,13 +43,14 @@ public class TelaLogin extends JFrame {
         field.add(senhaUsuario, BorderLayout.CENTER);
 
         loginUsuario = new JButton("Login");
-        fieldButton.add(loginUsuario, BorderLayout.CENTER);
+        fieldButton.add(loginUsuario, BorderLayout.CENTER); 
 
         c.add(field, BorderLayout.CENTER);
         c.add(fieldText, BorderLayout.NORTH);
         c.add(fieldButton, BorderLayout.SOUTH);
         setSize(400, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
 
         loginUsuario.addActionListener(new ActionListener() {
