@@ -32,6 +32,7 @@ public class Main {
         sistema.cadastrarUser(nome, email, senha);
     }
 
+    // Logar!!!
     public static void logar() {
 
         System.out.println("\nEmail do Usuario: ");
@@ -78,24 +79,6 @@ public class Main {
                 }
             }
         }
-    }
-
-    // Exibir Posts
-    public static void exibirPosts() {
-        Post[] posts = sistema.mostrarPosts();
-
-        if (posts == null) {
-            System.out.println("Não há Posts!!");
-        } else {
-            for (int i = 0; i < posts.length; i++) {
-                if (posts[i] == null) {
-                    break;
-                } else {
-                    System.out.println(posts[i].toString());
-                }
-            }
-        }
-
     }
 
     // Seguir

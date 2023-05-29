@@ -29,18 +29,25 @@ public class TelaPrincipal extends JFrame {
         vision = new JPanel();
         field = new JPanel();
         vision.setLayout(new BorderLayout());
-        vision.setBackground(Color.GRAY);
-        vision.setBorder(BorderFactory.createEmptyBorder(10, 22, 10, 22));
+        vision.setBackground(Color.BLACK);
+        vision.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         usuariosButton = new JButton("Usuário");
         field.add(usuariosButton, BorderLayout.NORTH);
 
+        // Teste com ScrollBar
         icon = new ImageIcon(getClass().getResource("IMAGEM.png"));
         exibirPosts = new JLabel(icon);
         icon.setImage(icon.getImage().getScaledInstance(220, 220, 100));
-        vision.add(exibirPosts);
+
+        JScrollPane scrollPane = new JScrollPane(exibirPosts);
+
+        // Definir a política de rolagem para exibir a barra de rolagem sempre que necessário
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        vision.add(scrollPane);
  
 
+        // Painel de intereção
         interactionPanel = new JPanel();
 
         publicarButton = new JButton("Publicar");
@@ -126,12 +133,7 @@ public class TelaPrincipal extends JFrame {
                         poster.setImagem(imagePath);
                         sistema.publicar(poster);
                         JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
-                    } else {
-                        // O usuário cancelou a seleção da imagem
-
-                    }
-                                
-                    JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
+                    }            
                 } else {
                     // O usuário cancelou a entrada dos dados
                     JOptionPane.showMessageDialog(null, "Erro!");
