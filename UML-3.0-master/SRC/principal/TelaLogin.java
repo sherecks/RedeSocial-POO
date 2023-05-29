@@ -1,7 +1,6 @@
 package principal;
 
 import negocios.Login;
-import dados.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame {
+
+    public String email;
+    public String senha;
 
     private JPanel field;
     private JPanel fieldText;
@@ -18,24 +20,6 @@ public class TelaLogin extends JFrame {
     private JTextField senhaUsuario;
     private JLabel tituloLabel, titulo1;
     private JButton loginUsuario; 
-
-    public void logar() {
-        TelaLogin tela = new TelaLogin();
-        Login login = new Login();
-    
-        String email = emailUsuario.getText();
-        String senha = new String(senhaUsuario.getText());
-    
-        Usuario usuarioLogado = login.fazerLogin(email, senha);
-    
-        if (usuarioLogado != null) {
-            JOptionPane.showMessageDialog(field, "Login realizado com sucesso!");
-            tela.setVisible(true);
-            setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
-        }
-    }
 
     public TelaLogin(){
 
@@ -77,7 +61,20 @@ public class TelaLogin extends JFrame {
             
             @Override
             public void actionPerformed(ActionEvent e){
-                logar();
+                TelaPrincipal tela = new TelaPrincipal();
+                Login login = new Login();
+            
+                email = new String(emailUsuario.getText());
+                senha = new String(senhaUsuario.getText());
+                
+            
+                if (email.isEmpty() || senha.isEmpty()) {
+                    JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
+                } else {
+                    login.fazerLogin(email, senha);
+                    tela.setVisible(true);
+                    setVisible(false);
+                }
             }
         });
     }

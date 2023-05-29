@@ -1,6 +1,5 @@
 package principal;
 
-import dados.Usuario;
 import negocios.Login;
 
 import javax.swing.*;
@@ -11,7 +10,8 @@ import java.awt.event.ActionEvent;
 public class TelaCadastro extends JFrame {
 
     public String nome;
-    public String email;
+    public String email; 
+    public String senha;
 
     private JPanel field;
     private JPanel fieldText;
@@ -32,7 +32,6 @@ public class TelaCadastro extends JFrame {
         field.setBackground(Color.GRAY);
 
         Container c = getContentPane();
-        Login sistema = new Login();
 
         // TEXTFIELD
         tituloLabel = new JLabel("CADASTRO");
@@ -69,17 +68,24 @@ public class TelaCadastro extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 TelaLogin tela = new TelaLogin();
-                Usuario user = new Usuario();
+                Login login = new Login();
+                
+                nome = (new String(nomeUsuario.getText()));
+                email = (new String(emailUsuario.getText()));
+                senha = (new String(senhaUsuario.getText()));
 
-                user.setNome(nomeUsuario.getText());
-                user.setEmail(emailUsuario.getText());
-                user.setSenha(new String(senhaUsuario.getText()));
-
-
-                if (user.getNome().isEmpty() || user.getEmail().isEmpty() || user.getSenha().isEmpty()) {
-                    JOptionPane.showMessageDialog(field, "Cadastro não realizado com sucesso.");
+                if (nome.isEmpty() || senha.isEmpty() || email.isEmpty()) {
+                    JOptionPane.showMessageDialog(field, "Cadastro não realizado.");
                 } else {
-                    sistema.cadastrarUser(user);
+
+                    login.cadastrarUser(nome, email, senha);
+                    
+                    // Exibir informações do usuário cadastrado
+                    String mensagem = "Usuário cadastrado:\n" +
+                    "Nome: " + nome + "\n" +
+                    "Email: " + email;
+                    JOptionPane.showMessageDialog(null, mensagem);
+
                     tela.setVisible(true);
                     setVisible(false);
                 }

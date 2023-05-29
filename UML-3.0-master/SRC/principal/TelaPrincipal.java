@@ -2,6 +2,11 @@ package principal;
 
 import javax.swing.*;
 import java.awt.*;
+import dados.*;
+import negocios.Login;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaPrincipal extends JFrame {
 
@@ -55,6 +60,47 @@ public class TelaPrincipal extends JFrame {
         setSize(480, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
+
+        //EVENTO
+
+        seguirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Login sistema = new Login();
+                String nomeSeguido = JOptionPane.showInputDialog(null, "Digite o nome do usuário a ser seguido:");
+                String nomeSeguidor = JOptionPane.showInputDialog(null, "Digite o nome do usuário seguidor:");
+        
+                if (nomeSeguido != null && nomeSeguidor != null) {
+                    // Continua o código com as operações de seguir o usuário
+                    Usuario seguido = null;
+                    for (Usuario u : sistema.mostrarUsuarios()) {
+                        if (u != null && u.getNome().equals(nomeSeguido)) {
+                            seguido = u;
+                            break;
+                        }
+                    }
+        
+                    Usuario seguidor = null;
+                    for (Usuario u : sistema.mostrarUsuarios()) {
+                        if (u != null && u.getNome().equals(nomeSeguidor)) {
+                            seguidor = u;
+                            break;
+                        }
+                    }
+        
+                    if (seguido == null || seguidor == null) {
+                        JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
+                    } else {
+                        seguidor.seguir(seguido);
+                        JOptionPane.showMessageDialog(null, "Usuário seguido com sucesso!");
+                    }
+                } else {
+                    // O usuário cancelou a entrada dos nomes
+                    // Trate essa situação conforme necessário
+                }
+            }
+        });
 
     }
 

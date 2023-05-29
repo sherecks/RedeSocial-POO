@@ -14,12 +14,8 @@ public class Screen extends JFrame {
     private JLabel tituloLabel;
     private JButton cadastrarUsuarioButton;
     private JButton fazerLoginButton;
-<<<<<<< Updated upstream
     private JLabel imagem;
     private ImageIcon icon;
-=======
-    //private JLabel imagem;
->>>>>>> Stashed changes
 
     public Screen() {
         Container c = getContentPane();
@@ -33,14 +29,14 @@ public class Screen extends JFrame {
         tituloLabel = new JLabel("MENU");
         tagsText.add(tituloLabel, BorderLayout.CENTER);
 
-<<<<<<< Updated upstream
+
         icon = new ImageIcon(getClass().getResource("IMAGEM.png"));
         imagem = new JLabel(icon);
         icon.setImage(icon.getImage().getScaledInstance(220, 220, 100));
         tagsPhoto.add(imagem, BorderLayout.CENTER);
 
-=======
->>>>>>> Stashed changes
+
+
         cadastrarUsuarioButton = new JButton("Cadastrar Usuario");
         tags.add(cadastrarUsuarioButton, BorderLayout.CENTER);
 

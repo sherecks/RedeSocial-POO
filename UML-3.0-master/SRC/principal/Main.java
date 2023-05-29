@@ -19,22 +19,20 @@ public class Main {
 
     // Cadastro!!!
     public static void cadastrarUser() {
-        Usuario user = new Usuario();
 
         System.out.println("\nNome do Usuario: ");
-        user.setNome(s.nextLine());
+        String nome = (s.nextLine());
 
         System.out.println("\nEmail do Usuario: ");
-        user.setEmail(s.nextLine());
+        String email = (s.nextLine());
 
         System.out.println("\nSenha do Usuario: ");
-        user.setSenha(s.nextLine());
+        String senha = (s.nextLine());
 
-        sistema.cadastrarUser(user);
+        sistema.cadastrarUser(nome, email, senha);
     }
 
     public static void logar() {
-        Login login = new Login();
 
         System.out.println("\nEmail do Usuario: ");
         String x1 = s.nextLine();
@@ -42,9 +40,9 @@ public class Main {
         System.out.println("\nSenha do Usuario: ");
         String x2 = (s.nextLine());
 
-        Usuario usuarioLogado = login.fazerLogin(x1, x2);
+        boolean user = sistema.fazerLogin(x1, x2);
 
-        if (usuarioLogado != null) {
+        if (user == true) {
             System.out.println("Login realizado com sucesso!");
         } else {
             System.out.println("Usuário não encontrado ou senha incorreta.");
@@ -210,9 +208,6 @@ public class Main {
 
     // O IMPORTANTE!!!
     public static void main(String[] args) {
-
-        cadastrarUser();
-        logar();
 
         TelaCadastro frame2 = new TelaCadastro();
         Screen frame1 = new Screen();

@@ -1,7 +1,6 @@
 package negocios;
 
 import dados.Usuario;
-
 import dados.Post;
 
 public class Login {
@@ -32,8 +31,12 @@ public class Login {
 
     //Funçãozinha - Cadastro, Exibição, Curtir, Seguir, Login.
 
-    public void cadastrarUser(Usuario usuario){
-        usuarios[contUser] = usuario;
+    public void cadastrarUser(String nome, String email, String senha) {
+        Usuario user = new Usuario();
+        user.setNome(nome);
+        user.setEmail(email);
+        user.setSenha(senha);
+        usuarios[contUser] = user;
         contUser++;
     }
 
@@ -62,13 +65,13 @@ public class Login {
         usuario.desseguir(usuario);
     }
 
-    public Usuario fazerLogin(String email, String senha) {
+    public boolean fazerLogin(String email, String senha) {
         for (int i = 0; i < contUser; i++) {
             if (usuarios[i].getEmail().equals(email) && usuarios[i].getSenha().equals(senha)) {
-                return usuarios[i];
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
 }
