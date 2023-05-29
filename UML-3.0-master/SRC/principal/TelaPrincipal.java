@@ -70,7 +70,7 @@ public class TelaPrincipal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Login sistema = new Login();
                 String nomeSeguido = JOptionPane.showInputDialog(null, "Digite o nome do usuário a ser seguido:");
-                String nomeSeguidor = JOptionPane.showInputDialog(null, "Digite o nome do usuário seguidor:");
+                String nomeSeguidor = JOptionPane.showInputDialog(null, "Digite o seu nome de usuário:");
         
                 if (nomeSeguido != null && nomeSeguidor != null) {
                     
@@ -128,6 +128,7 @@ public class TelaPrincipal extends JFrame {
                         JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
                     } else {
                         // O usuário cancelou a seleção da imagem
+
                     }
                                 
                     JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
