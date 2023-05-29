@@ -10,7 +10,6 @@ public class Login {
 
     public Post [] posts = new Post[500];
     int contPost = 0;
-s
     //1°
     public void setUsuarios(Usuario[] usuarios){
         this.usuarios = usuarios;
