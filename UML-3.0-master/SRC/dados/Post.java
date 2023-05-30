@@ -2,16 +2,17 @@ package dados;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 public class Post{
 
-    private String imagem;
+    private ImageIcon imagem;
     private String legenda;
     private String autor;
     private List<Usuario> likes = new ArrayList<>();
 
     //1° - Setters
-    public void setImagem(String imagem){
+    public void setImagem(ImageIcon imagem){
         this.imagem = imagem;
     }
     
@@ -29,7 +30,7 @@ public class Post{
 
 
     //2° - Getters
-    public String getImagem(){
+    public ImageIcon getImagem(){
         return imagem;
     }
     public String getLegenda(){

@@ -5,12 +5,7 @@ import dados.Post;
 import negocios.Login;
 
 import java.util.Scanner;
-//import javax.swing.JFrame;
-//import javax.swing.JPanel;
 
-
-//import java.awt.BorderLayout;
-//import java.awt.Container;
 
 public class Main {
 

@@ -3,29 +3,24 @@ package negocios;
 import dados.Usuario;
 import dados.Post;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Login {
 
     public Usuario [] usuarios = new Usuario[500];
     int contUser = 0;
 
-    public Post [] posts = new Post[500];
-    int contPost = 0;
+    private List<Post> posts = new ArrayList<>();
+
     //1°
     public void setUsuarios(Usuario[] usuarios){
         this.usuarios = usuarios;
     }
 
-    public void setPosts(Post[] posts){
-        this.posts = posts;
-    }
-
     //2°
     public Usuario[] getUsuarios() {
         return usuarios;
-    }
-
-    public Post[] getPosts() {
-        return posts;
     }
 
     //Funçãozinha - Cadastro, Exibição, Curtir, Seguir, Login.
@@ -43,12 +38,11 @@ public class Login {
         return usuarios;
     }
 
-    public void publicar(Post post){
-        posts[contPost] = post;
-        contPost++;
+    public void publicar(Post post) {
+        posts.add(post);
     }
 
-    public Post [] mostrarPosts(){
+    public List<Post> mostrarPosts() {
         return posts;
     }
 

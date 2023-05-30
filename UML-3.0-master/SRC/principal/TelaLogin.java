@@ -55,6 +55,7 @@ public class TelaLogin extends JFrame {
         setSize(400, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
 
         // EVENTO
         loginUsuario.addActionListener(new ActionListener() {

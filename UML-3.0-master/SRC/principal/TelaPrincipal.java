@@ -13,11 +13,10 @@ public class TelaPrincipal extends JFrame {
 
     private JButton usuariosButton;
     private JButton publicarButton;
-    private JLabel exibirPosts;
+    private JPanel exibirPosts;
     private JButton curtirButton;
     private JButton seguirButton;
     private JButton desseguirButton;
-    private ImageIcon icon;
 
     private JPanel field;
     private JPanel interactionPanel;
@@ -29,22 +28,21 @@ public class TelaPrincipal extends JFrame {
         vision = new JPanel();
         field = new JPanel();
         vision.setLayout(new BorderLayout());
-        vision.setBackground(Color.BLACK);
+        vision.setBackground(Color.GRAY);
         vision.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         usuariosButton = new JButton("Usuário");
         field.add(usuariosButton, BorderLayout.NORTH);
 
         // Teste com ScrollBar
-        icon = new ImageIcon(getClass().getResource("IMAGEM.png"));
-        exibirPosts = new JLabel(icon);
-        icon.setImage(icon.getImage().getScaledInstance(220, 220, 100));
-
+        
+        exibirPosts = new JPanel();
+        exibirPosts.setLayout(new GridLayout(0, 1));
         JScrollPane scrollPane = new JScrollPane(exibirPosts);
 
         // Definir a política de rolagem para exibir a barra de rolagem sempre que necessário
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        vision.add(scrollPane);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        vision.add(scrollPane, BorderLayout.CENTER);
  
 
         // Painel de intereção
@@ -68,6 +66,7 @@ public class TelaPrincipal extends JFrame {
         setSize(480, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
 
 
         //EVENTO
@@ -119,6 +118,7 @@ public class TelaPrincipal extends JFrame {
                 String legenda = JOptionPane.showInputDialog(null, "Digite a legenda:");
                 String autor = JOptionPane.showInputDialog(null, "Digite o autor:");
 
+
                 if (legenda != null && autor != null) {
                     poster.setLegenda(legenda);
                     poster.setAutor(autor);
@@ -130,9 +130,35 @@ public class TelaPrincipal extends JFrame {
 
                     if (result == JFileChooser.APPROVE_OPTION) {
                         String imagePath = fileChooser.getSelectedFile().getPath();
-                        poster.setImagem(imagePath);
+                        ImageIcon imageIcon = new ImageIcon(imagePath);
+                        ImageIcon scaledIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(220, 220, Image.SCALE_DEFAULT));
+                        poster.setImagem(scaledIcon);
                         sistema.publicar(poster);
                         JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
+                        
+                        // Cria a exibição do Post!!!
+                        JLabel postLabel01 = new JLabel(poster.getLegenda());
+                        JLabel postLabel02 = new JLabel(poster.getAutor());
+                        JLabel imagemLabel = new JLabel(scaledIcon);
+
+                    
+                        // Organizar Legenda e Autor!!!
+                        JPanel postLabelsPanel = new JPanel();
+                        postLabelsPanel.setLayout(new BoxLayout(postLabelsPanel, BoxLayout.PAGE_AXIS));
+                        postLabelsPanel.add(postLabel01);
+                        postLabelsPanel.add(postLabel02);
+                        postLabelsPanel.setBorder(BorderFactory.createEmptyBorder(10, 145, 10, 145));
+
+
+                        //Cria um JPanel para Organizar!!!
+                        JPanel postPanel = new JPanel();
+                        postPanel.setLayout(new BorderLayout());
+                        postPanel.add(postLabelsPanel, BorderLayout.CENTER);
+                        postPanel.add(imagemLabel, BorderLayout.NORTH);
+
+                        exibirPosts.add(postPanel);
+                        exibirPosts.revalidate();
+                        exibirPosts.repaint();
                     }            
                 } else {
                     // O usuário cancelou a entrada dos dados
