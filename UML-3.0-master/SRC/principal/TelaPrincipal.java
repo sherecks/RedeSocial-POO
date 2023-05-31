@@ -20,8 +20,8 @@ public class TelaPrincipal extends JFrame {
     private JButton usuariosButton;
     private JButton publicarButton;
     private JPanel exibirPosts;
-    private JButton curtirButton;
     private JButton seguirButton;
+    private JButton curtirButton;
     private JButton desseguirButton;
     private  JLabel curtidasLabel;
 
@@ -121,21 +121,6 @@ public class TelaPrincipal extends JFrame {
             }
         });
 
-        // Botão de curtir!!!
-        curtirButton = new JButton("Curtir");
-        curtirButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Incrementa o contador de curtidas
-            int curtidas = poster.getCurtidas();
-            curtidas++;
-            poster.setCurtidas(curtidas);
-
-            // Atualiza o valor exibido no contador de curtidas
-             curtidasLabel.setText("Curtidas: " + curtidas);
-            }
-        });
-
         // Publicar!!!
         publicarButton.addActionListener(new ActionListener() {
             @Override
@@ -167,7 +152,24 @@ public class TelaPrincipal extends JFrame {
         
                         // Contador de curtidas
                         curtidasLabel = new JLabel("Curtidas: " + poster.getCurtidas());
-                    
+                        curtirButton = new JButton("Curtir");
+
+                         // Botão de curtir!!!
+                        curtirButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                // Incrementa o contador de curtidas
+                                int curtidas = poster.getCurtidas();
+                                curtidas++;
+                                poster.setCurtidas(curtidas);
+
+                                // Atualiza o valor exibido no contador de curtidas
+                                curtidasLabel.setText("Curtidas: " + curtidas);
+                            }
+                        });
+
+
+
                         // Organizar Legenda e Autor!!!
                         postLabelsPanel.setLayout(new BoxLayout(postLabelsPanel, BoxLayout.PAGE_AXIS));
                         postLabelsPanel.add(postLabel01);
