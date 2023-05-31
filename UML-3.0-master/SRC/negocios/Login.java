@@ -14,7 +14,7 @@ public class Login {
     private Usuario usuarioLogado;
 
     public List<Usuario> getUsuarios() {
-        return usuarios;
+        return this.usuarios;
     }
 
     public Usuario getUsuarioLogado() {
@@ -34,11 +34,11 @@ public class Login {
         user.setNome(nome);
         user.setEmail(email);
         user.setSenha(senha);
-        usuarios.add(user);
+        this.usuarios.add(user);
     }
 
     public List<Usuario> mostrarUsuarios() {
-        return usuarios;
+        return this.usuarios;
     }
 
     public void publicar(Post post) {
@@ -47,10 +47,6 @@ public class Login {
 
     public List<Post> mostrarPosts() { 
         return posts;
-    }
-
-    public void darLike(Usuario usuario, Post post){
-        usuario.darLike(post);
     }
 
     public void seguir(Usuario usuario){
@@ -62,7 +58,7 @@ public class Login {
     }
 
     public Usuario fazerLogin(String email, String senha) {
-        for (Usuario user : usuarios) {
+        for (Usuario user : this.usuarios) {
             if (user.getEmail().trim().equals(email.trim()) && user.getSenha().trim().equals(senha.trim())) {
                 setUsuarioLogado(user);
                 return user;

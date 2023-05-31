@@ -6,22 +6,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class TelaLogin extends JFrame {
 
     public String email;
     public String senha;
+    public Login login;
 
     private JPanel field;
     private JPanel fieldText;
     private JPanel fieldButton;
 
-    private JTextField emailUsuario;
-    private JTextField senhaUsuario;
+    public JTextField emailUsuario;
+    public JTextField senhaUsuario;
     private JLabel tituloLabel, titulo1;
     private JButton loginUsuario; 
 
-    public TelaLogin(){
+    public TelaLogin(Login login){
 
         field = new JPanel();
         fieldText = new JPanel();
@@ -62,29 +64,32 @@ public class TelaLogin extends JFrame {
             
             @Override
             public void actionPerformed(ActionEvent e){
-                Login login = new Login();
-                TelaPrincipal tela = new TelaPrincipal(login);
 
                 email = emailUsuario.getText().trim(); 
                 senha = senhaUsuario.getText().trim();
             
                 if (email.isEmpty() || senha.isEmpty()) {
                     JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
+                    
                 } else {
-
-                    tela.setVisible(true);
 
                     // Exibir informações do usuário!!!
                     String mensagem = "Usuário:\n" +
-                    "Email: " + email;
-                    JOptionPane.showMessageDialog(null, mensagem); 
+                    "Email: " + email; 
+                    mensagem += "\n\nCadastrados:\n";
+                    List<Usuario> usuarios = login.getUsuarios();
+                    for (Usuario usuario : usuarios) {
+                        mensagem += "Nome: " + usuario.getNome() + ", Email: " + usuario.getEmail() + "\n";
+                    }
 
+                    JOptionPane.showMessageDialog(null, mensagem);
 
                    Usuario usuarioLogado = login.fazerLogin(email, senha);
                    String test = "O resultado: " + usuarioLogado;
                    JOptionPane.showMessageDialog(null, test);
 
                    if(usuarioLogado != null){
+                        TelaPrincipal tela = new TelaPrincipal(login, usuarioLogado);
                         tela.setVisible(true);
                         setVisible(false);
                    } else {

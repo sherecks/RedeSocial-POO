@@ -11,7 +11,6 @@ public class Usuario {
 
     private List<Usuario> seguidos = new ArrayList<>();
     private List<Usuario> seguidores = new ArrayList<>();
-    private List<Post> curtidas = new ArrayList<>();
 
     //Getters & Setters
 
@@ -54,11 +53,6 @@ public class Usuario {
     }
 
     //Funçãozinha
-    public void darLike(Post post){
-        curtidas.add(post);
-        post.adicionarLike(this);
-    }
-
     public void seguir(Usuario usuario){
         seguidos.add(usuario);
         usuario.getSeguidores().add(this);

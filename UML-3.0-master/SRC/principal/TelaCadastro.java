@@ -73,7 +73,7 @@ public class TelaCadastro extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaLogin tela = new TelaLogin();
+                TelaLogin tela = new TelaLogin(login);
                 
                 nome = nomeUsuario.getText();
                 email = emailUsuario.getText();

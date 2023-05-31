@@ -75,7 +75,7 @@ public class Screen extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                TelaLogin screen = new TelaLogin();
+                TelaLogin screen = new TelaLogin(login);
 
                 screen.setVisible(true);
 
