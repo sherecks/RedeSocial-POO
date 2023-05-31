@@ -8,13 +8,13 @@ import java.util.List;
 
 public class Login {
 
-    public Usuario [] usuarios = new Usuario[500];
+    private List<Usuario> usuarios = new ArrayList<>();
     int contUser = 0;
 
     private Usuario usuarioLogado;
 
-    public int getContUser(){
-        return contUser;
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
     public Usuario getUsuarioLogado() {
@@ -27,16 +27,6 @@ public class Login {
 
     private List<Post> posts = new ArrayList<>();
 
-    //1°
-    public void setUsuarios(Usuario[] usuarios){
-        this.usuarios = usuarios;
-    }
-
-    //2°
-    public Usuario[] getUsuarios() {
-        return usuarios;
-    }
-
     //Funçãozinha - Cadastro, Curtir, Seguir, Login.
 
     public void cadastrarUser(String nome, String email, String senha) {
@@ -44,11 +34,10 @@ public class Login {
         user.setNome(nome);
         user.setEmail(email);
         user.setSenha(senha);
-        usuarios[contUser] = user;
-        contUser++;
+        usuarios.add(user);
     }
 
-    public Usuario [] mostrarUsuarios(){
+    public List<Usuario> mostrarUsuarios() {
         return usuarios;
     }
 
@@ -73,10 +62,10 @@ public class Login {
     }
 
     public Usuario fazerLogin(String email, String senha) {
-        for (int i = 0; i < contUser; i++) {
-            if (usuarios[i].getEmail().trim().equals(email.trim()) && usuarios[i].getSenha().trim().equals(senha.trim())) {
-                setUsuarioLogado(usuarios[i]);
-                return usuarios[i];
+        for (Usuario user : usuarios) {
+            if (user.getEmail().trim().equals(email.trim()) && user.getSenha().trim().equals(senha.trim())) {
+                setUsuarioLogado(user);
+                return user;
             }
         }
         return null;

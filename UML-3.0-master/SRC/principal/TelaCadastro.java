@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import dados.*;
+import java.util.List;
 
 public class TelaCadastro extends JFrame {
 
@@ -14,7 +15,7 @@ public class TelaCadastro extends JFrame {
     public String email; 
     public String senha;
 
-    private Login login;
+    public Login login;
 
     private JPanel field;
     private JPanel fieldText;
@@ -89,17 +90,21 @@ public class TelaCadastro extends JFrame {
                     "Nome: " + nome + "\n" +
                     "Email: " + email;
 
-                    // Exibir conteúdo do array de usuários
+                    // Exibir conteúdo da lista de usuários
                     mensagem += "\n\nCadastrados:\n";
-                    for (int i = 0; i < login.getContUser(); i++) {
-                        Usuario usuario = login.usuarios[i];
+                    List<Usuario> usuarios = login.getUsuarios();
+                    for (Usuario usuario : usuarios) {
                         mensagem += "Nome: " + usuario.getNome() + ", Email: " + usuario.getEmail() + "\n";
                     }
 
                     JOptionPane.showMessageDialog(null, mensagem);
 
-                    tela.setVisible(true);
-                    setVisible(false);
+                    // Exibir confirmação antes de ir para a tela de login
+                    int confirmacao = JOptionPane.showConfirmDialog(null, mensagem + "\nDeseja fazer login agora?", "Confirmação de Cadastro", JOptionPane.YES_NO_OPTION);
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        tela.setVisible(true);
+                        setVisible(false);
+                    }
                 }
 
             }

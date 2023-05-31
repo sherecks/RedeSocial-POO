@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 
 public class Screen extends JFrame {
 
-    private Login login;
+    public Login login;
     private JPanel tags;
     private JPanel tagsText;
     private JPanel tagsPhoto;

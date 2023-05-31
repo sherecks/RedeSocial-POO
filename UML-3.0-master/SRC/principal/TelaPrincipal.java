@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 
 public class TelaPrincipal extends JFrame {
 
-    private Login login;
+    public Login login;
 
     private JButton usuariosButton;
     private JButton publicarButton;
@@ -73,18 +73,16 @@ public class TelaPrincipal extends JFrame {
 
 
         //EVENTO
-
         seguirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Login sistema = new Login();
                 String nomeSeguido = JOptionPane.showInputDialog(null, "Digite o nome do usuário a ser seguido:");
                 String nomeSeguidor = JOptionPane.showInputDialog(null, "Digite o seu nome de usuário:");
-        
+                
                 if (nomeSeguido != null && nomeSeguidor != null) {
                     
                     Usuario seguido = null;
-                    for (Usuario u : sistema.mostrarUsuarios()) {
+                    for (Usuario u : login.getUsuarios()) {
                         if (u != null && u.getNome().equals(nomeSeguido)) {
                             seguido = u;
                             break;
@@ -92,7 +90,7 @@ public class TelaPrincipal extends JFrame {
                     }
         
                     Usuario seguidor = null;
-                    for (Usuario u : sistema.mostrarUsuarios()) {
+                    for (Usuario u : login.getUsuarios()) {
                         if (u != null && u.getNome().equals(nomeSeguidor)) {
                             seguidor = u;
                             break;
@@ -115,7 +113,6 @@ public class TelaPrincipal extends JFrame {
         publicarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Login sistema = new Login();
                 Post poster = new Post();
 
                 String legenda = JOptionPane.showInputDialog(null, "Digite a legenda:");
@@ -136,7 +133,7 @@ public class TelaPrincipal extends JFrame {
                         ImageIcon imageIcon = new ImageIcon(imagePath);
                         ImageIcon scaledIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(220, 220, Image.SCALE_DEFAULT));
                         poster.setImagem(scaledIcon);
-                        sistema.publicar(poster);
+                        login.publicar(poster);
                         JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
                         
                         // Cria a exibição do Post!!!

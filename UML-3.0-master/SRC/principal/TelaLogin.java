@@ -63,6 +63,7 @@ public class TelaLogin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 Login login = new Login();
+                TelaPrincipal tela = new TelaPrincipal(login);
 
                 email = emailUsuario.getText().trim(); 
                 senha = senhaUsuario.getText().trim();
@@ -70,6 +71,8 @@ public class TelaLogin extends JFrame {
                 if (email.isEmpty() || senha.isEmpty()) {
                     JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
                 } else {
+
+                    tela.setVisible(true);
 
                     // Exibir informações do usuário!!!
                     String mensagem = "Usuário:\n" +
@@ -81,8 +84,7 @@ public class TelaLogin extends JFrame {
                    String test = "O resultado: " + usuarioLogado;
                    JOptionPane.showMessageDialog(null, test);
 
-                   if(usuarioLogado != null){  
-                        TelaPrincipal tela = new TelaPrincipal(login);
+                   if(usuarioLogado != null){
                         tela.setVisible(true);
                         setVisible(false);
                    } else {
