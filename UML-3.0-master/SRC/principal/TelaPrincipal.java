@@ -175,7 +175,7 @@ public class TelaPrincipal extends JFrame {
                         postLabelsPanel.add(curtidasLabel);
                         postLabelsPanel.add(curtirButton);
                         postLabelsPanel.setBackground(Color.GRAY);
-                        postLabelsPanel.setBorder(BorderFactory.createEmptyBorder(10, 165, 10, 165));
+                        postLabelsPanel.setBorder(BorderFactory.createEmptyBorder(10, 155, 10, 155));
 
 
                         //Cria um JPanel para Organizar!!!
