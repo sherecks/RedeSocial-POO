@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 
 public class TelaPrincipal extends JFrame {
 
+    private Login login;
+
     private JButton usuariosButton;
     private JButton publicarButton;
     private JPanel exibirPosts;
@@ -22,8 +24,9 @@ public class TelaPrincipal extends JFrame {
     private JPanel interactionPanel;
     private JPanel vision;
 
-    public TelaPrincipal() {
+    public TelaPrincipal(Login login) {
         Container c = getContentPane();
+        this.login = login;
 
         vision = new JPanel();
         field = new JPanel();

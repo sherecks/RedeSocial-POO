@@ -36,7 +36,6 @@ public class Usuario {
         this.seguidores = seguidores;
     }
 
-
     //2°
     public String getNome() {
         return nome;

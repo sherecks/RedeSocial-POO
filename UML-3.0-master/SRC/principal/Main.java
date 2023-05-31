@@ -12,70 +12,6 @@ public class Main {
     static Scanner s = new Scanner(System.in);
     private static Login sistema = new Login();
 
-    // Cadastro!!!
-    public static void cadastrarUser() {
-
-        System.out.println("\nNome do Usuario: ");
-        String nome = (s.nextLine());
-
-        System.out.println("\nEmail do Usuario: ");
-        String email = (s.nextLine());
-
-        System.out.println("\nSenha do Usuario: ");
-        String senha = (s.nextLine());
-
-        sistema.cadastrarUser(nome, email, senha);
-    }
-
-    // Logar!!!
-    public static void logar() {
-
-        System.out.println("\nEmail do Usuario: ");
-        String x1 = s.nextLine();
-
-        System.out.println("\nSenha do Usuario: ");
-        String x2 = (s.nextLine());
-
-        boolean user = sistema.fazerLogin(x1, x2);
-
-        if (user == true) {
-            System.out.println("Login realizado com sucesso!");
-        } else {
-            System.out.println("Usuário não encontrado ou senha incorreta.");
-        }
-
-    }
-
-    // Publicar!!!
-    public static void publicar() {
-        Post poster = new Post();
-
-        System.out.println("Legenda: ");
-        poster.setLegenda(s.nextLine());
-
-        System.out.println("Autor: ");
-        poster.setAutor(s.nextLine());
-
-        sistema.publicar(poster);
-    }
-
-    // Exibir Users
-    public static void exibirUsuarios() {
-        Usuario[] usuarios = sistema.mostrarUsuarios();
-
-        if (usuarios == null) {
-            System.out.println("Não há usuários cadastrados!!");
-        } else {
-            for (int i = 0; i < usuarios.length; i++) {
-                if (usuarios[i] == null) {
-                    break;
-                } else {
-                    System.out.println(usuarios[i].toString());
-                }
-            }
-        }
-    }
-
     // Seguir
     public static void seguir() {
 
@@ -183,19 +119,11 @@ public class Main {
         System.out.println("Like adicionado com sucesso!");
     }
 
-
     // O IMPORTANTE!!!
     public static void main(String[] args) {
-
-        TelaCadastro frame2 = new TelaCadastro();
-        Screen frame1 = new Screen();
-        TelaPrincipal frame3 = new TelaPrincipal();
-        TelaLogin frame4 = new TelaLogin();
-
+        Login login = new Login();
+        Screen frame1 = new Screen(login);
         frame1.setVisible(true);
-        frame2.setVisible(false);
-        frame3.setVisible(false);
-        frame4.setVisible(false);
     }
 
 }

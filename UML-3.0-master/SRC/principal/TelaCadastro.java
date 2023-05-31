@@ -6,12 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import dados.*;
 
 public class TelaCadastro extends JFrame {
 
     public String nome;
     public String email; 
     public String senha;
+
+    private Login login;
 
     private JPanel field;
     private JPanel fieldText;
@@ -23,7 +26,7 @@ public class TelaCadastro extends JFrame {
     private JLabel tituloLabel, titulo1;
     private JButton cadastrarUsuario;
 
-    public TelaCadastro() {
+    public TelaCadastro(Login login) {
 
         field = new JPanel();
         fieldText = new JPanel();
@@ -32,6 +35,7 @@ public class TelaCadastro extends JFrame {
         field.setBackground(Color.GRAY);
 
         Container c = getContentPane();
+        this.login = login;
 
         // TEXTFIELD
         tituloLabel = new JLabel("CADASTRO");
@@ -69,11 +73,10 @@ public class TelaCadastro extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 TelaLogin tela = new TelaLogin();
-                Login login = new Login();
                 
-                nome = (new String(nomeUsuario.getText()));
-                email = (new String(emailUsuario.getText()));
-                senha = (new String(senhaUsuario.getText()));
+                nome = nomeUsuario.getText();
+                email = emailUsuario.getText();
+                senha = senhaUsuario.getText();
 
                 if (nome.isEmpty() || senha.isEmpty() || email.isEmpty()) {
                     JOptionPane.showMessageDialog(field, "Cadastro não realizado.");
@@ -82,9 +85,17 @@ public class TelaCadastro extends JFrame {
                     login.cadastrarUser(nome, email, senha);
                     
                     // Exibir informações do usuário cadastrado!!!
-                    String mensagem = "Usuário cadastrado:\n" +
+                    String mensagem = "Cadastrado:\n" +
                     "Nome: " + nome + "\n" +
                     "Email: " + email;
+
+                    // Exibir conteúdo do array de usuários
+                    mensagem += "\n\nCadastrados:\n";
+                    for (int i = 0; i < login.getContUser(); i++) {
+                        Usuario usuario = login.usuarios[i];
+                        mensagem += "Nome: " + usuario.getNome() + ", Email: " + usuario.getEmail() + "\n";
+                    }
+
                     JOptionPane.showMessageDialog(null, mensagem);
 
                     tela.setVisible(true);

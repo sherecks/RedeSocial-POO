@@ -1,5 +1,6 @@
 package principal;
 
+import negocios.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 
 public class Screen extends JFrame {
 
+    private Login login;
     private JPanel tags;
     private JPanel tagsText;
     private JPanel tagsPhoto;
@@ -17,8 +19,11 @@ public class Screen extends JFrame {
     private JLabel imagem;
     private ImageIcon icon;
 
-    public Screen() {
+    public Screen(Login login) {
+
         Container c = getContentPane();
+        this.login = login;
+
         tags = new JPanel();
         tagsText = new JPanel();
         tagsPhoto = new JPanel();
@@ -52,12 +57,11 @@ public class Screen extends JFrame {
         setResizable(false);
 
         // TESTE!!!
-
         cadastrarUsuarioButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                TelaCadastro tela = new TelaCadastro();
+                TelaCadastro tela = new TelaCadastro(login);
 
                 tela.setVisible(true);
 
@@ -67,7 +71,6 @@ public class Screen extends JFrame {
         });
 
         // TESTE!!
-
         fazerLoginButton.addActionListener(new ActionListener() {
 
             @Override

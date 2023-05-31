@@ -1,7 +1,7 @@
 package principal;
 
 import negocios.Login;
-
+import dados.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -62,28 +62,34 @@ public class TelaLogin extends JFrame {
             
             @Override
             public void actionPerformed(ActionEvent e){
-                TelaPrincipal tela = new TelaPrincipal();
                 Login login = new Login();
-            
-                email = new String(emailUsuario.getText());
-                senha = new String(senhaUsuario.getText());
-                
+
+                email = emailUsuario.getText().trim(); 
+                senha = senhaUsuario.getText().trim();
             
                 if (email.isEmpty() || senha.isEmpty()) {
                     JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
                 } else {
 
+                    // Exibir informações do usuário!!!
+                    String mensagem = "Usuário:\n" +
+                    "Email: " + email;
+                    JOptionPane.showMessageDialog(null, mensagem); 
 
-                     // Exibir informações do usuário!!!
-                     String mensagem = "Usuário:\n" +
-                     "Email: " + email;
-                     JOptionPane.showMessageDialog(null, mensagem);
 
+                   Usuario usuarioLogado = login.fazerLogin(email, senha);
+                   String test = "O resultado: " + usuarioLogado;
+                   JOptionPane.showMessageDialog(null, test);
 
-                    login.fazerLogin(email, senha);
-                    tela.setVisible(true);
-                    setVisible(false);
+                   if(usuarioLogado != null){  
+                        TelaPrincipal tela = new TelaPrincipal(login);
+                        tela.setVisible(true);
+                        setVisible(false);
+                   } else {
+                    JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
+                   }
                 }
+                     
             }
         });
     }
