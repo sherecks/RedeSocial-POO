@@ -160,13 +160,10 @@ public class TelaPrincipal extends JFrame {
                             public void actionPerformed(ActionEvent e) {
                                 
                                 // Incrementa o contador de curtidas
-                                int curtidas = 0;
-                                curtidas = poster.getCurtidas();
-                                curtidas++;
-                                poster.setCurtidas(curtidas);
+                                poster.curtir();
 
                                 // Atualiza o valor exibido no contador de curtidas
-                                curtidasLabel.setText("Curtidas: " + curtidas);
+                                curtidasLabel.setText("Curtidas: " + poster.getCurtidas());
                             }
                         });
 

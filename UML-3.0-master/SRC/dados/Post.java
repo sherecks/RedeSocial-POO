@@ -40,6 +40,9 @@ public class Post{
     public int getCurtidas(){
         return curtidas;
     }
+    public void curtir(){
+        curtidas++;
+    }
 
     //toString
     public String toString(){
