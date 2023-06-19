@@ -34,12 +34,12 @@ public class TelaPrincipal extends JFrame {
         if (!usuariosSeguidos.isEmpty()) {
             StringBuilder mensagem = new StringBuilder("Usuários que você está seguindo:\n");
 
-            // Construa a mensagem com os nomes dos usuários seguidos
+            // Mensagem com os nomes dos usuários seguidos
             for (Usuario usuario : usuariosSeguidos) {
                 mensagem.append(usuario.getNome()).append("\n");
             }
 
-            // Exiba a mensagem usando o JOptionPane
+            // Exibe a mensagem usando o JOptionPane
             JOptionPane.showMessageDialog(null, mensagem.toString());
         } else {
             JOptionPane.showMessageDialog(null, "Você não está seguindo nenhum usuário.");
@@ -48,12 +48,10 @@ public class TelaPrincipal extends JFrame {
 
     public TelaPrincipal(Login login, Usuario usuarioLogado) {
         Container c = getContentPane();
-        Post poster = new Post();
         this.login = login;
 
         vision = new JPanel();
         field = new JPanel();
-        JPanel postLabelsPanel = new JPanel();
         vision.setLayout(new BorderLayout());
         vision.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -63,11 +61,11 @@ public class TelaPrincipal extends JFrame {
         // Teste com ScrollBar
         exibirPosts = new JPanel();
         exibirPosts.setBackground(Color.GRAY);
-        exibirPosts.setLayout(new GridLayout(0, 1));
+        exibirPosts.setLayout(new BoxLayout(exibirPosts, BoxLayout.Y_AXIS));
         JScrollPane scrollPane = new JScrollPane(exibirPosts);
 
 
-        // Definir a política de rolagem para exibir a barra de rolagem sempre que necessário
+        // Exibir a barra de rolagem sempre que necessário
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         vision.add(scrollPane, BorderLayout.CENTER);
  
@@ -93,7 +91,7 @@ public class TelaPrincipal extends JFrame {
         setResizable(false);
 
 
-        //EVENTO
+        // EVENTO!!!
         seguirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,7 +114,7 @@ public class TelaPrincipal extends JFrame {
                         JOptionPane.showMessageDialog(null, "Usuário seguido com sucesso!");
                     }
                 } else {
-                    // O usuário cancelou a entrada dos nomes
+                    // O usuário cancelou a entrada dos nomes!!!
                 }
             }
         });
@@ -129,10 +127,11 @@ public class TelaPrincipal extends JFrame {
                 String legenda = JOptionPane.showInputDialog(null, "Digite a legenda:");
 
                 if (legenda != null && usuarioLogado != null) {
+                    Post poster = new Post();
                     poster.setLegenda(legenda);
                     poster.setAutor(usuarioLogado.getNome());
 
-                    // Selecionar a imagem usando JFileChooser
+                    // Seleciona a imagem usando JFileChooser
                     JFileChooser fileChooser = new JFileChooser();
                     fileChooser.setFileFilter(new FileNameExtensionFilter("Imagens", "jpg", "jpeg", "png", "gif"));
                     int result = fileChooser.showOpenDialog(null);
@@ -146,6 +145,7 @@ public class TelaPrincipal extends JFrame {
                         JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
                         
                         // Cria a exibição do Post!!!
+                        JPanel postLabelsPanel = new JPanel();
                         JLabel postLabel01 = new JLabel(poster.getLegenda());
                         JLabel postLabel02 = new JLabel(poster.getAutor());
                         JLabel imagemLabel = new JLabel(scaledIcon);
@@ -158,8 +158,10 @@ public class TelaPrincipal extends JFrame {
                         curtirButton.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                
                                 // Incrementa o contador de curtidas
-                                int curtidas = poster.getCurtidas();
+                                int curtidas = 0;
+                                curtidas = poster.getCurtidas();
                                 curtidas++;
                                 poster.setCurtidas(curtidas);
 
@@ -177,10 +179,11 @@ public class TelaPrincipal extends JFrame {
                         postLabelsPanel.add(curtidasLabel);
                         postLabelsPanel.add(curtirButton);
                         postLabelsPanel.setBackground(Color.GRAY);
-                        postLabelsPanel.setBorder(BorderFactory.createEmptyBorder(10, 155, 10, 155));
+                        postLabelsPanel.setBorder(BorderFactory.createEmptyBorder(25, 155, 10, 155));
 
 
-                        //Cria um JPanel para Organizar!!!
+
+                        // Cria um JPanel para Organizar!!!
                         JPanel postPanel = new JPanel();
                         postPanel.setLayout(new BorderLayout());
                         postPanel.add(postLabelsPanel, BorderLayout.CENTER);
@@ -232,19 +235,19 @@ public class TelaPrincipal extends JFrame {
         usuariosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Obtenha a lista de usuários que você está seguindo
+                // Obtem a lista de usuários que você está seguindo
                 List<Usuario> usuariosSeguidos = usuarioLogado.getSeguidos();
         
                 // Verifique se há usuários seguidos
                 if (!usuariosSeguidos.isEmpty()) {
                     StringBuilder mensagem = new StringBuilder("Usuários que você está seguindo:\n");
                     
-                    // Construa a mensagem com os nomes dos usuários seguidos
+                    // Nomes dos usuários seguidos
                     for (Usuario usuario : usuariosSeguidos) {
                         mensagem.append(usuario.getNome()).append("\n");
                     }
         
-                    // Exiba a mensagem usando o JOptionPane
+                    // Exibe a mensagem usando o JOptionPane
                     JOptionPane.showMessageDialog(null, mensagem.toString());
                 } else {
                     JOptionPane.showMessageDialog(null, "Você não está seguindo nenhum usuário.");

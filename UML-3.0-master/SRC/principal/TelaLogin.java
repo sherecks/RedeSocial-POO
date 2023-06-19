@@ -36,7 +36,7 @@ public class TelaLogin extends JFrame {
         titulo1 = new JLabel("Digite Email e Senha:");
         field.add(titulo1);
 
-        //TEXTFIELD
+        // TEXTFIELD
         tituloLabel = new JLabel("LOGIN");
         fieldText.add(tituloLabel, BorderLayout.CENTER);
 

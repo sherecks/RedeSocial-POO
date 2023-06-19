@@ -56,7 +56,7 @@ public class Screen extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        // TESTE!!!
+        // Botão Cadastro!!!
         cadastrarUsuarioButton.addActionListener(new ActionListener() {
 
             @Override
@@ -70,7 +70,7 @@ public class Screen extends JFrame {
             }
         });
 
-        // TESTE!!
+        // Botão Login!!
         fazerLoginButton.addActionListener(new ActionListener() {
 
             @Override

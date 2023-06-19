@@ -27,7 +27,7 @@ public class Login {
 
     private List<Post> posts = new ArrayList<>();
 
-    //Funçãozinha - Cadastro, Curtir, Seguir, Login.
+    // Funçãozinha
 
     public void cadastrarUser(String nome, String email, String senha) {
         Usuario user = new Usuario();

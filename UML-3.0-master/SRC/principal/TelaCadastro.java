@@ -68,7 +68,7 @@ public class TelaCadastro extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        //EVENTO
+        // EVENTO
         cadastrarUsuario.addActionListener(new ActionListener() {
 
             @Override
