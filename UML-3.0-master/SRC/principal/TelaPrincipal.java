@@ -3,7 +3,7 @@ package principal;
 import javax.swing.*;
 import java.awt.*;
 import dados.*;
-import negocios.Login;
+import negocios.Metodo;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
@@ -14,7 +14,8 @@ import java.util.List;
 
 public class TelaPrincipal extends JFrame {
 
-    public Login login;
+    public Usuario posting;
+    public Metodo posted;
     public Usuario usuarioLogado;
 
     private JButton usuariosButton;
@@ -44,9 +45,8 @@ public class TelaPrincipal extends JFrame {
         }
     }
 
-    public TelaPrincipal(Login login, Usuario usuarioLogado) {
+    public TelaPrincipal(Metodo posted, Usuario usuarioLogado) {
         Container c = getContentPane();
-        this.login = login;
 
         vision = new JPanel();
         field = new JPanel();
@@ -90,13 +90,15 @@ public class TelaPrincipal extends JFrame {
 
 
 
-        // DEIXAR POST PRONTO ->  !!!
+        // DEIXAR POST PRONTO ->  OK !!!
 
 
         // Criação do post de exemplo!!!
         Post postExemplo = new Post();
         postExemplo.setLegenda("Exemplo!!!");
-        postExemplo.setAutor(usuarioLogado); // Assume que o usuário logado é o autor do post!!!
+        postExemplo.setAutor(posted.getUsuarios().get(1)); // Assume o segundo usuário!!!
+
+        usuarioLogado.publicar(postExemplo);
 
         String caminhoImagem = "C:\\Users\\Jo\u00E3o Pedro\\Desktop\\RedeSocial-POO\\UML-3.0-master\\SRC\\principal\\IMAGEM.png";
         ImageIcon imagemExemplo = new ImageIcon(caminhoImagem);
@@ -157,7 +159,7 @@ public class TelaPrincipal extends JFrame {
                 if (nomeSeguido != null && usuarioLogado != null) {
                     
                     Usuario seguido = null;
-                    for (Usuario u : login.getUsuarios()) {
+                    for (Usuario u : posted.getUsuarios()) {
                         if (u != null && u.getNome().equals(nomeSeguido)) {
                             seguido = u;
                             break;
@@ -198,7 +200,7 @@ public class TelaPrincipal extends JFrame {
                         ImageIcon imageIcon = new ImageIcon(imagePath);
                         ImageIcon scaledIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(260, 260, Image.SCALE_DEFAULT));
                         poster.setImagem(scaledIcon);
-                        login.publicar(poster);
+                        usuarioLogado.publicar(poster);
                         JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
                         
                         // Cria a exibição do Post!!!
@@ -244,6 +246,7 @@ public class TelaPrincipal extends JFrame {
                         postPanel.add(imagemLabel, BorderLayout.NORTH);
                         postPanel.setBackground(Color.GRAY);
 
+
                         exibirPosts.add(postPanel);
                         exibirPosts.revalidate();
                         exibirPosts.repaint();
@@ -264,7 +267,7 @@ public class TelaPrincipal extends JFrame {
                 if (nomeEXSeguido != null && usuarioLogado != null) {
                     
                     Usuario seguido = null;
-                    for (Usuario u : login.getUsuarios()) {
+                    for (Usuario u : posted.getUsuarios()) {
                         if (u != null && u.getNome().equals(nomeEXSeguido)) {
                             seguido = u;
                             break;

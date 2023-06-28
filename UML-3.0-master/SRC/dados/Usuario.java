@@ -11,6 +11,7 @@ public class Usuario {
 
     private List<Usuario> seguidos = new ArrayList<>();
     private List<Usuario> seguidores = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     //Getters & Setters
 
@@ -61,6 +62,14 @@ public class Usuario {
     public void desseguir(Usuario usuario){
         seguidos.remove(usuario);
         usuario.getSeguidores().remove(this);
+    }
+
+    public void publicar(Post post) {
+        posts.add(post);
+    }
+
+    public List<Post> mostrarPosts() { 
+        return posts;
     }
     
     //toString

@@ -2,6 +2,7 @@ package principal;
 
 import negocios.*;
 import javax.swing.*;
+
 import java.awt.*;
 
 import java.awt.event.ActionListener;
@@ -9,7 +10,7 @@ import java.awt.event.ActionEvent;
 
 public class Screen extends JFrame {
 
-    public Login login;
+    public Metodo login;
     private JPanel tags;
     private JPanel tagsText;
     private JPanel tagsPhoto;
@@ -19,7 +20,7 @@ public class Screen extends JFrame {
     private JLabel imagem;
     private ImageIcon icon;
 
-    public Screen(Login login) {
+    public Screen(Metodo login) {
 
         Container c = getContentPane();
         this.login = login;

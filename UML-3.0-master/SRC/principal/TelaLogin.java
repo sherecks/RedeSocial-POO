@@ -1,6 +1,6 @@
 package principal;
 
-import negocios.Login;
+import negocios.Metodo;
 import dados.*;
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class TelaLogin extends JFrame {
 
     public String email;
     public String senha;
-    public Login login;
+    public Metodo login;
 
     private JPanel field;
     private JPanel fieldText;
@@ -24,7 +24,7 @@ public class TelaLogin extends JFrame {
     private JButton loginUsuario; 
     
 
-    public TelaLogin(Login login){
+    public TelaLogin(Metodo login){
 
         field = new JPanel();
         fieldText = new JPanel();

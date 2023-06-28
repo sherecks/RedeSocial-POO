@@ -1,12 +1,11 @@
 package negocios;
 
 import dados.Usuario;
-import dados.Post;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Login {
+public class Metodo {
 
     private List<Usuario> usuarios = new ArrayList<>();
     int contUser = 0;
@@ -25,10 +24,8 @@ public class Login {
         usuarioLogado = usuario;
     }
 
-    private List<Post> posts = new ArrayList<>();
 
     // Funçãozinha
-
     public void cadastrarUser(String nome, String email, String senha) {
         Usuario user = new Usuario();
         user.setNome(nome);
@@ -39,14 +36,6 @@ public class Login {
 
     public List<Usuario> mostrarUsuarios() {
         return this.usuarios;
-    }
-
-    public void publicar(Post post) {
-        posts.add(post);
-    }
-
-    public List<Post> mostrarPosts() { 
-        return posts;
     }
 
     public void seguir(Usuario usuario){

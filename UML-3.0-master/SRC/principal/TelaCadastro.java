@@ -1,6 +1,6 @@
 package principal;
 
-import negocios.Login;
+import negocios.Metodo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class TelaCadastro extends JFrame {
     public String email; 
     public String senha;
 
-    public Login login;
+    public Metodo login;
 
     private JPanel field;
     private JPanel fieldText;
@@ -28,7 +28,7 @@ public class TelaCadastro extends JFrame {
     private JButton cadastrarUsuario;
     
 
-    public TelaCadastro(Login login) {
+    public TelaCadastro(Metodo login) {
 
         field = new JPanel();
         fieldText = new JPanel();

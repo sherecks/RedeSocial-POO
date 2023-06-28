@@ -1,12 +1,12 @@
 package principal;
 
-import negocios.Login;
+import negocios.Metodo;
 
 public class Main {
 
     // O IMPORTANTE!!!
     public static void main(String[] args) {
-        Login login = new Login();
+        Metodo login = new Metodo();
         Screen frame1 = new Screen(login);
         frame1.setVisible(true);
     }
