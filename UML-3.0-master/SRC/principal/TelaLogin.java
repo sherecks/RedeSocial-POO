@@ -22,6 +22,7 @@ public class TelaLogin extends JFrame {
     public JTextField senhaUsuario;
     private JLabel tituloLabel, titulo1;
     private JButton loginUsuario; 
+    
 
     public TelaLogin(Login login){
 
@@ -72,6 +73,10 @@ public class TelaLogin extends JFrame {
                     JOptionPane.showMessageDialog(field, "Usuário não encontrado ou senha incorreta.");
                     
                 } else {
+
+                    // Cadastro de Alguns Usuarios !!!
+                    login.cadastrarUser("Joao", "Joao@", "123");
+                    login.cadastrarUser("Pietra", "Pietra@", "456");
 
                     // Exibir informações do usuário!!!
                     String mensagem = "Usuário:\n" +

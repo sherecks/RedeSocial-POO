@@ -26,6 +26,7 @@ public class TelaCadastro extends JFrame {
     private JTextField senhaUsuario;
     private JLabel tituloLabel, titulo1;
     private JButton cadastrarUsuario;
+    
 
     public TelaCadastro(Login login) {
 

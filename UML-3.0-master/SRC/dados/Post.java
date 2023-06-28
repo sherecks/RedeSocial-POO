@@ -6,7 +6,7 @@ public class Post{
 
     private ImageIcon imagem;
     private String legenda;
-    private String autor;
+    private Usuario autor;
     private int curtidas;
 
     //1° - Setters
@@ -18,7 +18,7 @@ public class Post{
         this.legenda = legenda;
     }
 
-    public void setAutor(String autor){
+    public void setAutor(Usuario autor){
         this.autor = autor;
     }
 
@@ -34,7 +34,7 @@ public class Post{
     public String getLegenda(){
         return legenda;
     }
-    public String getAutor(){
+    public Usuario getAutor(){
         return autor;
     }
     public int getCurtidas(){

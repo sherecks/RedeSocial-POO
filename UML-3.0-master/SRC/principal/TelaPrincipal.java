@@ -21,9 +21,7 @@ public class TelaPrincipal extends JFrame {
     private JButton publicarButton;
     private JPanel exibirPosts;
     private JButton seguirButton;
-    private JButton curtirButton;
     private JButton desseguirButton;
-    private  JLabel curtidasLabel;
 
     private JPanel field;
     private JPanel interactionPanel;
@@ -91,6 +89,65 @@ public class TelaPrincipal extends JFrame {
         setResizable(false);
 
 
+
+        // DEIXAR POST PRONTO ->  !!!
+
+
+        // Criação do post de exemplo!!!
+        Post postExemplo = new Post();
+        postExemplo.setLegenda("Exemplo!!!");
+        postExemplo.setAutor(usuarioLogado); // Assume que o usuário logado é o autor do post!!!
+
+        String caminhoImagem = "C:\\Users\\Jo\u00E3o Pedro\\Desktop\\RedeSocial-POO\\UML-3.0-master\\SRC\\principal\\IMAGEM.png";
+        ImageIcon imagemExemplo = new ImageIcon(caminhoImagem);
+        ImageIcon scaledIcon = new ImageIcon(imagemExemplo.getImage().getScaledInstance(260, 260, Image.SCALE_DEFAULT));
+        
+        postExemplo.setImagem(scaledIcon);
+
+        // Cria a exibição do Post de exemplo!!!
+        JPanel postLabelsPanel = new JPanel();
+        JLabel postLabel01 = new JLabel(postExemplo.getLegenda());
+        JLabel postLabel02 = new JLabel(postExemplo.getAutor().getNome());
+        JLabel imagemLabel = new JLabel(scaledIcon);
+
+        // Contador de curtidas!!!
+        JLabel curtidasLabel = new JLabel("Curtidas: " + postExemplo.getCurtidas());
+        JButton curtirButton = new JButton("Curtir");
+
+        // Botão de curtir!!!
+        curtirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Incrementa o contador de curtidas!!!
+                postExemplo.curtir();
+
+                // Atualiza o valor exibido no contador de curtidas!!!
+                curtidasLabel.setText("Curtidas: " + postExemplo.getCurtidas());
+            }
+        });
+ 
+        // Organizar Legenda e Autor!!!
+        postLabelsPanel.setLayout(new BoxLayout(postLabelsPanel, BoxLayout.PAGE_AXIS));
+        postLabelsPanel.add(postLabel01);
+        postLabelsPanel.add(postLabel02);
+        postLabelsPanel.add(curtidasLabel);
+        postLabelsPanel.add(curtirButton);
+        postLabelsPanel.setBackground(Color.GRAY);
+        postLabelsPanel.setBorder(BorderFactory.createEmptyBorder(25, 155, 10, 155));
+
+        // Cria um JPanel para Organizar o Post de exemplo!!!
+        JPanel postPanel = new JPanel();
+        postPanel.setLayout(new BorderLayout());
+        postPanel.add(postLabelsPanel, BorderLayout.CENTER);
+        postPanel.add(imagemLabel, BorderLayout.NORTH);
+        postPanel.setBackground(Color.GRAY);
+
+        // Adiciona o Post de exemplo à interface!!!
+        exibirPosts.add(postPanel);
+        exibirPosts.revalidate();
+        exibirPosts.repaint();
+
+
         // EVENTO!!!
         seguirButton.addActionListener(new ActionListener() {
             @Override
@@ -129,7 +186,7 @@ public class TelaPrincipal extends JFrame {
                 if (legenda != null && usuarioLogado != null) {
                     Post poster = new Post();
                     poster.setLegenda(legenda);
-                    poster.setAutor(usuarioLogado.getNome());
+                    poster.setAutor(usuarioLogado);
 
                     // Seleciona a imagem usando JFileChooser
                     JFileChooser fileChooser = new JFileChooser();
@@ -147,12 +204,12 @@ public class TelaPrincipal extends JFrame {
                         // Cria a exibição do Post!!!
                         JPanel postLabelsPanel = new JPanel();
                         JLabel postLabel01 = new JLabel(poster.getLegenda());
-                        JLabel postLabel02 = new JLabel(poster.getAutor());
+                        JLabel postLabel02 = new JLabel(usuarioLogado.getNome());
                         JLabel imagemLabel = new JLabel(scaledIcon);
         
                         // Contador de curtidas
-                        curtidasLabel = new JLabel("Curtidas: " + poster.getCurtidas());
-                        curtirButton = new JButton("Curtir");
+                        JLabel curtidasLabel = new JLabel("Curtidas: " + poster.getCurtidas());
+                        JButton curtirButton = new JButton("Curtir");
 
                          // Botão de curtir!!!
                         curtirButton.addActionListener(new ActionListener() {
