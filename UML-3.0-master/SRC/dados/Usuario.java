@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Usuario {
 
+    private Integer id;
     private String nome;
     private String email;
     private String senha;
@@ -16,6 +17,10 @@ public class Usuario {
     //Getters & Setters
 
     //1°
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public void setNome(String nome){
         this.nome = nome;
     }
@@ -36,7 +41,14 @@ public class Usuario {
         this.seguidores = seguidores;
     }
 
+    public void setPost(List<Post> posts){
+        this.posts = posts;
+    }
+
     //2°
+    public Integer getId() {
+        return id;
+    }
     public String getNome() {
         return nome;
     }
@@ -51,6 +63,9 @@ public class Usuario {
     }
     public List<Usuario> getSeguidos(){
         return seguidos;
+    }
+    public List<Post> getPost(){
+        return posts;
     }
 
     //Funçãozinha
