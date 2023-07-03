@@ -4,6 +4,7 @@ import dados.*;
 
 import excecoes.InsertException;
 import excecoes.SelectException;
+import excecoes.UpdateException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class PostDAO {
     private PreparedStatement selectNewId;
     private PreparedStatement selectPost;
     private PreparedStatement insertPost;
+    private PreparedStatement updatePost;
     private PreparedStatement selectAll;
 
     public static PostDAO getInstance() throws ClassNotFoundException, SQLException, SelectException {
@@ -35,6 +37,7 @@ public class PostDAO {
         selectNewId = cox.prepareStatement("select nextVal('id')");
         insertPost = cox.prepareStatement("insert into post values(?, ?, ?, ?, ?, ?)");
         selectPost = cox.prepareStatement("select * from post where id = ?");
+        updatePost = cox.prepareStatement("update post set imagem = ?, legenda = ?, autor = ?, curtidas = ? where id = ?");
         selectAll = cox.prepareStatement("select * from post");
     }
 
@@ -50,6 +53,17 @@ public class PostDAO {
         return 0;
     }
 
+    public void updatePost(Post post) throws UpdateException {
+        try{
+            updatePost.setObject(2, post.getImagem());
+            updatePost.setString(3, post.getLegenda());
+            updatePost.setObject(4, post.getAutor());
+            updatePost.setInt(5, post.getCurtidas());
+            updatePost.executeUpdate();
+        } catch (SQLException e) {
+            throw new UpdateException("Erro ao atualizar!!!");
+        }
+    }
 
     public void insert(Post post) throws InsertException, SelectException{
 
@@ -73,9 +87,10 @@ public class PostDAO {
             ImageIcon imagem = (ImageIcon) rs.getObject("imagem");
             String legenda = rs.getString("legenda");
             int curtidas = rs.getInt("curtidas");
+            String autorEmail = rs.getString("autorEmail");
 
             UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
-            Usuario autor = usuarioDAO.select(id);
+            Usuario autor = usuarioDAO.select(autorEmail);
             
             Post post = new Post();
             post.setId(id);

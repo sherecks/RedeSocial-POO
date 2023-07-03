@@ -1,6 +1,13 @@
 package negocios;
 
 import dados.Usuario;
+import excecoes.InsertException;
+import excecoes.SelectException;
+import excecoes.UpdateException;
+import persistencia.PostDAO;
+import persistencia.UsuarioDAO;
+
+import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +17,8 @@ public class Metodo {
     private List<Usuario> usuarios = new ArrayList<>();
     int contUser = 0;
 
+    private UsuarioDAO usuarioDAO;
+    private PostDAO postDAO;
     private Usuario usuarioLogado;
 
     public List<Usuario> getUsuarios() {
@@ -26,16 +35,31 @@ public class Metodo {
 
     private int idext = 1;
 
+    // Metodo!!!
+    public Metodo() {
+        try {
+            usuarioDAO = UsuarioDAO.getInstance();
+            postDAO = PostDAO.getInstance();
+            usuarios = usuarioDAO.selectAll();
+        } catch (ClassNotFoundException | SQLException | SelectException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Funçãozinha
     public void cadastrarUser(String nome, String email, String senha) {
-        Usuario user = new Usuario();
-        user.setId(idext);
-        user.setNome(nome);
-        user.setEmail(email);
-        user.setSenha(senha);
-        this.usuarios.add(user);
-
+        try {
+        Usuario usuario = new Usuario();
+        usuario.setId(idext);
+        usuario.setNome(nome);
+        usuario.setEmail(email);
+        usuario.setSenha(senha);
+        usuarioDAO.insert(usuario);
+        usuarios.add(usuario);
         idext++;
+    } catch (InsertException | SelectException e) {
+        e.printStackTrace();
+    }
     }
 
     public List<Usuario> mostrarUsuarios() {
@@ -43,21 +67,33 @@ public class Metodo {
     }
 
     public void seguir(Usuario usuario){
-        usuario.seguir(usuario);
+       try {
+            usuario.seguir(usuario);
+            usuarioDAO.updateUsuario(usuario);
+        } catch (UpdateException e) {
+            e.printStackTrace();
+        }
     }
-
     public void desseguir(Usuario usuario){
-        usuario.desseguir(usuario);
+        try {
+            usuario.desseguir(usuario);
+            usuarioDAO.updateUsuario(usuario);
+        } catch (UpdateException e) {
+            e.printStackTrace();
+        }
     }
 
     public Usuario fazerLogin(String email, String senha) {
-        for (Usuario user : this.usuarios) {
-            if (user.getEmail().trim().equals(email.trim()) && user.getSenha().trim().equals(senha.trim())) {
-                setUsuarioLogado(user);
-                return user;
+        try {
+            Usuario usuario = usuarioDAO.select(email);
+            if (usuario != null && usuario.getSenha().equals(senha)) {
+                setUsuarioLogado(usuario);
+                return usuario;
             }
+        } catch (SelectException e) {
+            e.printStackTrace();
         }
-        return null;
-    }
+    return null;
+}
 
 }

@@ -4,6 +4,7 @@ import dados.*;
 
 import excecoes.InsertException;
 import excecoes.SelectException;
+import excecoes.UpdateException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ public class UsuarioDAO {
     private PreparedStatement selectNewId;
     private PreparedStatement selectUsuario;
     private PreparedStatement insertUsuario;
+    private PreparedStatement updateUsuario;
     private PreparedStatement selectAll;
 
     public static UsuarioDAO getInstance() throws ClassNotFoundException, SQLException, SelectException{
@@ -46,6 +48,15 @@ public class UsuarioDAO {
         return 0;
     }
 
+    public void updateUsuario(Usuario usuario) throws UpdateException{
+        try{
+            updateUsuario.setString(2, usuario.getNome());
+
+        } catch (SQLException e) {
+            throw new UpdateException("Erro ao atualizar!!!");
+        }
+    }
+
     public void insert(Usuario usuario) throws InsertException, SelectException{
         int novoId = selectNewId();
         try{
@@ -56,20 +67,20 @@ public class UsuarioDAO {
             insertUsuario.setObject(5, usuario.getSeguidos());
             insertUsuario.setObject(6, usuario.getSeguidores());
             insertUsuario.setObject(7, usuario.getPost());
+            insertUsuario.executeUpdate();
         } catch (SQLException e){
             throw new InsertException("Erro ao inserir Usuario!!!");
         }
     }
 
-    public Usuario select(int usuario) throws SelectException{
+    public Usuario select(String email) throws SelectException{
         try{
-            selectUsuario.setInt(1, usuario);
+            selectUsuario.setString(1, email);
             ResultSet rs = selectUsuario.executeQuery();
             if(rs.next()) {
                 int id = rs.getInt(1);
                 String nome = rs.getString(2);
-                String email = rs.getString(3);
-                String senha = rs.getString(4);
+                String senha = rs.getString(3);
 
                 Usuario usuarioSelecionado = new Usuario();
                 usuarioSelecionado.setId(id);
