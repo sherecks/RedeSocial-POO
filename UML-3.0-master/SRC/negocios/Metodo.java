@@ -22,16 +22,20 @@ public class Metodo {
     
     public void setUsuarioLogado(Usuario usuario) {
         usuarioLogado = usuario;
-    }
+    }   
 
+    private int idext = 1;
 
     // Funçãozinha
     public void cadastrarUser(String nome, String email, String senha) {
         Usuario user = new Usuario();
+        user.setId(idext);
         user.setNome(nome);
         user.setEmail(email);
         user.setSenha(senha);
         this.usuarios.add(user);
+
+        idext++;
     }
 
     public List<Usuario> mostrarUsuarios() {

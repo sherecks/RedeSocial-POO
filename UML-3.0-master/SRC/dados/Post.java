@@ -4,12 +4,17 @@ import javax.swing.ImageIcon;
 
 public class Post{
 
+    private Integer id;
     private ImageIcon imagem;
     private String legenda;
     private Usuario autor;
     private int curtidas;
 
     //1° - Setters
+    public void setId(Integer id){
+        this.id = id;
+    }
+
     public void setImagem(ImageIcon imagem){
         this.imagem = imagem;
     }
@@ -28,6 +33,9 @@ public class Post{
 
 
     //2° - Getters
+    public Integer getId(){
+        return id;
+    }
     public ImageIcon getImagem(){
         return imagem;
     }

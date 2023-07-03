@@ -7,6 +7,7 @@ import excecoes.SelectException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class UsuarioDAO {
         Connection cox = Conexao.getConexao();
         selectNewId = cox.prepareStatement("select nextVal('id')");
         insertUsuario = cox.prepareStatement("insert into usuario values(?, ?, ?, ?, ?, ?)");
-        selectUsuario = cox.prepareStatement("select * from usuario where id_character = ?");
+        selectUsuario = cox.prepareStatement("select * from usuario where id = ?");
         selectAll = cox.prepareStatement("select * from usuario");
     }
 
@@ -46,7 +47,9 @@ public class UsuarioDAO {
     }
 
     public void insert(Usuario usuario) throws InsertException, SelectException{
+        int novoId = selectNewId();
         try{
+            insertUsuario.setInt(1, novoId);
             insertUsuario.setString(2, usuario.getNome());
             insertUsuario.setString(3, usuario.getEmail());
             insertUsuario.setString(4, usuario.getSenha());
@@ -67,8 +70,14 @@ public class UsuarioDAO {
                 String nome = rs.getString(2);
                 String email = rs.getString(3);
                 String senha = rs.getString(4);
-                List<Usuario> seguidos = rs.getString(5);
 
+                Usuario usuarioSelecionado = new Usuario();
+                usuarioSelecionado.setId(id);
+                usuarioSelecionado.setNome(nome);
+                usuarioSelecionado.setEmail(email);
+                usuarioSelecionado.setSenha(senha);
+            
+                return usuarioSelecionado;
             }
 
         }catch (SQLException e){
@@ -76,5 +85,29 @@ public class UsuarioDAO {
         }
         return null;
     }
+
+
+    public List<Usuario> selectAll() throws SelectException{
+
+        List<Usuario> usuarios = new LinkedList<Usuario>();
+
+        try{
+            ResultSet rs = selectAll.executeQuery();
+            while(rs.next()){
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt(1));
+                usuario.setNome(rs.getString(2));
+                usuario.setEmail(rs.getString(3));
+                usuario.setSenha(rs.getString(5));
+
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            throw new SelectException("Erro ao buscar Usuario!!!");
+        }
+        return usuarios;
+    }
+
+
     
 }
