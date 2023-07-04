@@ -31,12 +31,12 @@ public class UsuarioDAO {
     private UsuarioDAO() throws ClassNotFoundException, SQLException, SelectException{
         Connection cox = Conexao.getConexao();
         selectNewId = cox.prepareStatement("select nextVal('id')");
-        insertUsuario = cox.prepareStatement("insert into usuario values(?, ?, ?, ?, ?, ?)");
+        insertUsuario = cox.prepareStatement("insert into usuario values(?, ?, ?, ?)");
         selectUsuario = cox.prepareStatement("select * from usuario where id = ?");
         selectAll = cox.prepareStatement("select * from usuario");
     }
 
-    private int selectNewId() throws SelectException{
+    public int selectNewId() throws SelectException{
         try{
             ResultSet rs = selectNewId.executeQuery();
             if(rs.next()){
@@ -59,28 +59,26 @@ public class UsuarioDAO {
 
     public void insert(Usuario usuario) throws InsertException, SelectException{
         int novoId = selectNewId();
+        usuario.setId(novoId);
         try{
             insertUsuario.setInt(1, novoId);
             insertUsuario.setString(2, usuario.getNome());
             insertUsuario.setString(3, usuario.getEmail());
             insertUsuario.setString(4, usuario.getSenha());
-            insertUsuario.setObject(5, usuario.getSeguidos());
-            insertUsuario.setObject(6, usuario.getSeguidores());
-            insertUsuario.setObject(7, usuario.getPost());
             insertUsuario.executeUpdate();
         } catch (SQLException e){
             throw new InsertException("Erro ao inserir Usuario!!!");
         }
     }
 
-    public Usuario select(String email) throws SelectException{
+    public Usuario select(int id) throws SelectException{
         try{
-            selectUsuario.setString(1, email);
+            selectUsuario.setInt(1, id);
             ResultSet rs = selectUsuario.executeQuery();
             if(rs.next()) {
-                int id = rs.getInt(1);
                 String nome = rs.getString(2);
                 String senha = rs.getString(3);
+                String email = rs.getString(4);
 
                 Usuario usuarioSelecionado = new Usuario();
                 usuarioSelecionado.setId(id);

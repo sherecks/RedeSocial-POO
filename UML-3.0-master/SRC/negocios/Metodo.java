@@ -7,6 +7,7 @@ import excecoes.UpdateException;
 import persistencia.PostDAO;
 import persistencia.UsuarioDAO;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -33,10 +34,8 @@ public class Metodo {
         usuarioLogado = usuario;
     }   
 
-    private int idext = 1;
-
     // Metodo!!!
-    public Metodo() {
+    public Metodo(Connection conexao) {
         try {
             usuarioDAO = UsuarioDAO.getInstance();
             postDAO = PostDAO.getInstance();
@@ -46,54 +45,66 @@ public class Metodo {
         }
     }
 
+    
     // Funçãozinha
     public void cadastrarUser(String nome, String email, String senha) {
-        try {
-        Usuario usuario = new Usuario();
-        usuario.setId(idext);
-        usuario.setNome(nome);
-        usuario.setEmail(email);
-        usuario.setSenha(senha);
-        usuarioDAO.insert(usuario);
-        usuarios.add(usuario);
-        idext++;
-    } catch (InsertException | SelectException e) {
-        e.printStackTrace();
-    }
+       try {
+            Usuario usuario = new Usuario();
+            usuario.setNome(nome);
+            usuario.setEmail(email);
+            usuario.setSenha(senha);
+
+            // Obter novo ID do banco de dados
+            int novoId = usuarioDAO.selectNewId();
+            usuario.setId(novoId);
+
+            // Inserir o usuário no banco de dados
+            usuarioDAO.insert(usuario);
+
+            usuarios.add(usuario);
+        } catch (InsertException | SelectException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Usuario> mostrarUsuarios() {
         return this.usuarios;
     }
 
-    public void seguir(Usuario usuario){
-       try {
-            usuario.seguir(usuario);
-            usuarioDAO.updateUsuario(usuario);
-        } catch (UpdateException e) {
-            e.printStackTrace();
+    public void seguir(Usuario seguido) {
+        if (usuarioLogado != null && seguido != null) {
+            usuarioLogado.seguir(seguido);
+            try {
+                usuarioDAO.updateUsuario(usuarioLogado);
+            } catch (UpdateException e) {
+                e.printStackTrace();
+            }
         }
     }
-    public void desseguir(Usuario usuario){
-        try {
-            usuario.desseguir(usuario);
-            usuarioDAO.updateUsuario(usuario);
-        } catch (UpdateException e) {
-            e.printStackTrace();
+
+    public void desseguir(Usuario seguido) {
+        if (usuarioLogado != null && seguido != null) {
+            usuarioLogado.desseguir(seguido);
+            try {
+                usuarioDAO.updateUsuario(usuarioLogado);
+            } catch (UpdateException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public Usuario fazerLogin(String email, String senha) {
         try {
-            Usuario usuario = usuarioDAO.select(email);
-            if (usuario != null && usuario.getSenha().equals(senha)) {
-                setUsuarioLogado(usuario);
-                return usuario;
+            for (Usuario user : this.usuarios) {
+                if (user.getEmail().trim().equals(email.trim()) && user.getSenha().trim().equals(senha.trim())) {
+                    setUsuarioLogado(user);
+                    return user;
+                }
             }
-        } catch (SelectException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    return null;
-}
+        return null;
+    }
 
 }

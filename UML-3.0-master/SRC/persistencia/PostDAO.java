@@ -73,6 +73,7 @@ public class PostDAO {
             insertPost.setObject(2, post.getImagem());
             insertPost.setString(3, post.getLegenda());
             insertPost.setObject(4, post.getAutor());
+            insertPost.executeUpdate();
         } catch (SQLException e){
             throw new InsertException("Erro ao buscar Post!!!");
         }
@@ -83,17 +84,16 @@ public class PostDAO {
         selectPost.setInt(1, postId);
         ResultSet rs = selectPost.executeQuery();
         if (rs.next()) {
-            int id = rs.getInt(1);
+            postId = rs.getInt(1);
             ImageIcon imagem = (ImageIcon) rs.getObject("imagem");
             String legenda = rs.getString("legenda");
             int curtidas = rs.getInt("curtidas");
-            String autorEmail = rs.getString("autorEmail");
 
             UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
-            Usuario autor = usuarioDAO.select(autorEmail);
+            Usuario autor = usuarioDAO.select(postId);
             
             Post post = new Post();
-            post.setId(id);
+            post.setId(postId);
             post.setImagem(imagem);
             post.setLegenda(legenda);
             post.setAutor(autor);
