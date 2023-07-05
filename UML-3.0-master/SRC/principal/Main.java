@@ -15,6 +15,5 @@ public class Main {
         Screen frame1 = new Screen(login);
         frame1.setVisible(true);
     }
-
 }
 //Deu boa!!!
