@@ -57,7 +57,6 @@ public class PostDAO {
         try{
             updatePost.setObject(2, post.getImagem());
             updatePost.setString(3, post.getLegenda());
-            updatePost.setObject(4, post.getAutor());
             updatePost.setInt(5, post.getCurtidas());
             updatePost.executeUpdate();
         } catch (SQLException e) {
@@ -71,8 +70,8 @@ public class PostDAO {
             insertPost.setInt(1, novoId);
             insertPost.setObject(2, post.getImagem());
             insertPost.setString(3, post.getLegenda());
-            insertPost.setObject(4, post.getAutor());
-             insertPost.setInt(5, post.getCurtidas());
+            insertPost.setObject(4, post.getAutor().getId());
+            insertPost.setInt(5, post.getCurtidas());
             insertPost.executeUpdate();
         } catch (SQLException e){
             throw new InsertException("Erro ao buscar Post!!!");
@@ -80,35 +79,35 @@ public class PostDAO {
     }
 
     public Post select(int postId) throws SelectException, ClassNotFoundException {
-    try {
-        selectPost.setInt(1, postId);
-        ResultSet rs = selectPost.executeQuery();
-        if (rs.next()) {
-            postId = rs.getInt(1);
-            ImageIcon imagem = (ImageIcon) rs.getObject("imagem");
-            String legenda = rs.getString("legenda");
-            int curtidas = rs.getInt("curtidas");
-            int autorId = rs.getInt("autor_id");
+        try {
+            selectPost.setInt(1, postId);
+            ResultSet rs = selectPost.executeQuery();
+            if (rs.next()) {
+                postId = rs.getInt(1);
+                ImageIcon imagem = (ImageIcon) rs.getObject("imagem");
+                String legenda = rs.getString("legenda");
+                int curtidas = rs.getInt("curtidas");
+                int autorId = rs.getInt("autor_id");
 
-            UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
-            Usuario autor = usuarioDAO.select(autorId);
-            
-            Post post = new Post();
-            post.setId(postId);
-            post.setImagem(imagem);
-            post.setLegenda(legenda);
-            post.setAutor(autor);
-            post.setCurtidas(curtidas);
-            
-            return post;
+                UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
+                Usuario autor = usuarioDAO.select(autorId);
+                
+                Post post = new Post();
+                post.setId(postId);
+                post.setImagem(imagem);
+                post.setLegenda(legenda);
+                post.setAutor(autor);
+                post.setCurtidas(curtidas);
+                
+                return post;
+            }
+        } catch (SQLException e) {
+            throw new SelectException("Erro ao buscar post!!!");
         }
-    } catch (SQLException e) {
-        throw new SelectException("Erro ao buscar post!!!");
-    }
-    return null;
+        return null;
     }
 
-    public List<Post> selectAll() throws SelectException{
+    public List<Post> selectAll() throws SelectException, ClassNotFoundException{
 
         List<Post> posts = new LinkedList<Post>();
 
@@ -119,12 +118,17 @@ public class PostDAO {
                 ImageIcon imagem = (ImageIcon) rs.getObject("imagem");
                 String legenda = rs.getString("legenda");
                 int curtidas = rs.getInt("curtidas");
+                int autorId = rs.getInt("autor_id");
+
+                UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
+                Usuario autor = usuarioDAO.select(autorId);
 
                 Post post = new Post();
                 post.setId(postId);
                 post.setImagem(imagem);
                 post.setLegenda(legenda);
                 post.setCurtidas(curtidas);
+                post.setAutor(autor);
                 
                 posts.add(post);
             }
