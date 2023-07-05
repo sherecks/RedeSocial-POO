@@ -95,12 +95,13 @@ public class Metodo {
 
     public Usuario fazerLogin(String email, String senha) {
         try {
-            for (Usuario user : this.usuarios) {
-                if (user.getEmail().trim().equals(email.trim()) && user.getSenha().trim().equals(senha.trim())) {
-                    setUsuarioLogado(user);
-                    return user;
-                }
-            }
+            UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
+            List<Usuario> usuarios = usuarioDAO.selectAll();
+            Usuario usuario = usuarioDAO.selectByEmailAndPassword(email, senha);
+        if (usuario != null) {
+            setUsuarioLogado(usuario);
+            return usuario;
+        }
         } catch (Exception e) {
             e.printStackTrace();
         }

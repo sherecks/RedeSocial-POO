@@ -3,12 +3,16 @@ package principal;
 import javax.swing.*;
 import java.awt.*;
 import dados.*;
+import excecoes.InsertException;
+import excecoes.SelectException;
 import negocios.Metodo;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+import persistencia.PostDAO;
 
 import java.util.List;
 
@@ -149,6 +153,16 @@ public class TelaPrincipal extends JFrame {
         exibirPosts.revalidate();
         exibirPosts.repaint();
 
+        try {
+            PostDAO postDAO = PostDAO.getInstance();
+            postDAO.insert(postExemplo);
+        } catch (ClassNotFoundException | SQLException | InsertException | SelectException ex) {
+            // Tratar exceções de persistência
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao publicar o post!");
+        }
+
+        
 
         // EVENTO!!!
         seguirButton.addActionListener(new ActionListener() {
@@ -200,6 +214,16 @@ public class TelaPrincipal extends JFrame {
                         ImageIcon imageIcon = new ImageIcon(imagePath);
                         ImageIcon scaledIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(260, 260, Image.SCALE_DEFAULT));
                         poster.setImagem(scaledIcon);
+
+                        try {
+                            PostDAO postDAO = PostDAO.getInstance();
+                            postDAO.insert(poster);
+                        } catch (ClassNotFoundException | SQLException | InsertException | SelectException ex) {
+                            // Tratar exceções de persistência
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Erro ao publicar o post!");
+                        }
+
                         usuarioLogado.publicar(poster);
                         JOptionPane.showMessageDialog(null, "Post publicado com sucesso!");
                         
@@ -250,7 +274,7 @@ public class TelaPrincipal extends JFrame {
                         exibirPosts.add(postPanel);
                         exibirPosts.revalidate();
                         exibirPosts.repaint();
-                    }            
+                    }      
                 } else {
                     // O usuário cancelou a entrada dos dados
                     JOptionPane.showMessageDialog(null, "Erro!");

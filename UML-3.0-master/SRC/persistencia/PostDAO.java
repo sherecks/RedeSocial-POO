@@ -66,13 +66,13 @@ public class PostDAO {
     }
 
     public void insert(Post post) throws InsertException, SelectException{
-
         int novoId = selectNewId();
         try{
             insertPost.setInt(1, novoId);
             insertPost.setObject(2, post.getImagem());
             insertPost.setString(3, post.getLegenda());
             insertPost.setObject(4, post.getAutor());
+             insertPost.setInt(5, post.getCurtidas());
             insertPost.executeUpdate();
         } catch (SQLException e){
             throw new InsertException("Erro ao buscar Post!!!");
@@ -88,9 +88,10 @@ public class PostDAO {
             ImageIcon imagem = (ImageIcon) rs.getObject("imagem");
             String legenda = rs.getString("legenda");
             int curtidas = rs.getInt("curtidas");
+            int autorId = rs.getInt("autor_id");
 
             UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
-            Usuario autor = usuarioDAO.select(postId);
+            Usuario autor = usuarioDAO.select(autorId);
             
             Post post = new Post();
             post.setId(postId);
@@ -114,15 +115,21 @@ public class PostDAO {
         try{
             ResultSet rs = selectAll.executeQuery();
             while(rs.next()){
-                Post post = new Post();
-                post.setId(rs.getInt(1));
-                post.setLegenda(rs.getString(2));
-                post.setCurtidas(rs.getInt(5));
+                int postId = rs.getInt("id");
+                ImageIcon imagem = (ImageIcon) rs.getObject("imagem");
+                String legenda = rs.getString("legenda");
+                int curtidas = rs.getInt("curtidas");
 
+                Post post = new Post();
+                post.setId(postId);
+                post.setImagem(imagem);
+                post.setLegenda(legenda);
+                post.setCurtidas(curtidas);
+                
                 posts.add(post);
             }
         } catch (SQLException e) {
-            throw new SelectException("Erro ao buscar Usuario!!!");
+            throw new SelectException("Erro ao buscar Post!!!");
         }
         return posts;
     }

@@ -33,6 +33,7 @@ public class TelaLogin extends JFrame {
         field.setBackground(Color.GRAY);
 
         Container c = getContentPane();
+        this.login = login;
 
         titulo1 = new JLabel("Digite Email e Senha:");
         field.add(titulo1);
@@ -74,9 +75,7 @@ public class TelaLogin extends JFrame {
                     
                 } else {
 
-                    // Cadastro de Alguns Usuarios !!!
-                    login.cadastrarUser("Joao", "Joao@", "123");
-                    login.cadastrarUser("Pietra", "Pietra@", "456");
+                    Usuario usuarioLogado = login.fazerLogin(email, senha);
 
                     // Exibir informações do usuário!!!
                     String mensagem = "Usuário:\n" +
@@ -88,10 +87,6 @@ public class TelaLogin extends JFrame {
                     }
 
                     JOptionPane.showMessageDialog(null, mensagem);
-
-                   Usuario usuarioLogado = login.fazerLogin(email, senha);
-                   String test = "O resultado: " + usuarioLogado;
-                   JOptionPane.showMessageDialog(null, test);
 
                    if(usuarioLogado != null){
                         TelaPrincipal tela = new TelaPrincipal(login, usuarioLogado);

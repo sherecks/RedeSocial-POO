@@ -20,6 +20,7 @@ public class UsuarioDAO {
     private PreparedStatement selectUsuario;
     private PreparedStatement insertUsuario;
     private PreparedStatement updateUsuario;
+    private PreparedStatement selectUsuarioByEmailAndPassword;
     private PreparedStatement selectAll;
 
     public static UsuarioDAO getInstance() throws ClassNotFoundException, SQLException, SelectException{
@@ -33,6 +34,8 @@ public class UsuarioDAO {
         selectNewId = cox.prepareStatement("select nextVal('id')");
         insertUsuario = cox.prepareStatement("insert into usuario values(?, ?, ?, ?)");
         selectUsuario = cox.prepareStatement("select * from usuario where id = ?");
+        updateUsuario = cox.prepareStatement("update usuario set nome = ? where id = ?");
+        selectUsuarioByEmailAndPassword = cox.prepareStatement("select * from usuario where email = ? AND senha = ?");
         selectAll = cox.prepareStatement("select * from usuario");
     }
 
@@ -50,23 +53,27 @@ public class UsuarioDAO {
 
     public void updateUsuario(Usuario usuario) throws UpdateException{
         try{
+            updateUsuario.setInt(1, usuario.getId());
             updateUsuario.setString(2, usuario.getNome());
+            updateUsuario.setString(3, usuario.getEmail());
+            updateUsuario.setString(4, usuario.getSenha());
 
         } catch (SQLException e) {
             throw new UpdateException("Erro ao atualizar!!!");
         }
     }
 
-    public void insert(Usuario usuario) throws InsertException, SelectException{
-        int novoId = selectNewId();
-        usuario.setId(novoId);
-        try{
+    public void insert(Usuario usuario) throws InsertException, SelectException {
+        try {
+            int novoId = selectNewId();
+            usuario.setId(novoId);
+
             insertUsuario.setInt(1, novoId);
             insertUsuario.setString(2, usuario.getNome());
             insertUsuario.setString(3, usuario.getEmail());
             insertUsuario.setString(4, usuario.getSenha());
             insertUsuario.executeUpdate();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new InsertException("Erro ao inserir Usuario!!!");
         }
     }
@@ -95,6 +102,34 @@ public class UsuarioDAO {
         return null;
     }
 
+    public Usuario selectByEmailAndPassword(String email, String senha) throws SelectException {
+        try {
+            selectUsuarioByEmailAndPassword.setString(1, email);
+            selectUsuarioByEmailAndPassword.setString(2, senha);
+            ResultSet rs = selectUsuarioByEmailAndPassword.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                email = rs.getString("email");
+                senha = rs.getString("senha");
+                
+                Usuario usuario = new Usuario();
+                usuario.setId(id);
+                usuario.setNome(nome);
+                usuario.setEmail(email);
+                usuario.setSenha(senha);
+                
+                return usuario;
+            }
+        } catch (SQLException e) {
+            throw new SelectException("Erro ao buscar usuário por email e senha");
+        }
+        return null;
+    }
+
+
+
+
 
     public List<Usuario> selectAll() throws SelectException{
 
@@ -107,7 +142,7 @@ public class UsuarioDAO {
                 usuario.setId(rs.getInt(1));
                 usuario.setNome(rs.getString(2));
                 usuario.setEmail(rs.getString(3));
-                usuario.setSenha(rs.getString(5));
+                usuario.setSenha(rs.getString(4));
 
                 usuarios.add(usuario);
             }
