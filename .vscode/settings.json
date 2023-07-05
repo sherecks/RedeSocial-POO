@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "UML-3.0-master/SRC/lib/postgresql-42.6.0.jar"
+    ]
+}
